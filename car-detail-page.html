@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    small {
+      font-size: 14px;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+
+    .date-fields {
+      height: 50px;
+      border-radius: 8px 0px 0px 8px;
+      border-right: 0px;
+    }
+
+    .time-fields {
+      height: 50px;
+      border-radius: 0px 8px 8px 0px;
+    }
+
+    .date-fields[readonly] {
+      background-color: #ffffff;
+    }
+
+    .next-btn {
+      height: 50px;
+    }
+
+    .days-price,
+    .car-price {
+      font-size: 16px;
+    }
+
+    .car-price,
+    .total-price-crp {
+      text-align: right;
+    }
+
+    .total-crp {
+      font-weight: 700;
+    }
+  </style>
+  <body>
+    <div class="row align-items-start">
+      <div class="col">One of three columns</div>
+      <div class="col">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+          <h3>$450 <small>$550/day</small></h3>
+          <div class="row gx-0">
+            <div class="col">
+              <input
+                type="text"
+                readonly
+                class="form-control start-date-crp date-fields"
+                placeholder="Start Date*"
+              />
+            </div>
+            <div class="col">
+              <select class="form-control start-time-crp time-fields">
+                <option>ABC</option>
+              </select>
+            </div>
+          </div>
+          <br />
+          <div class="row gx-0">
+            <div class="col">
+              <input
+                type="text"
+                readonly
+                class="form-control end-date-crp date-fields"
+                placeholder="End Date*"
+              />
+            </div>
+            <div class="col">
+              <select class="form-control start-time-crp time-fields">
+                <option>ABC</option>
+              </select>
+            </div>
+          </div>
+          <br />
+          <div class="d-grid gap-2">
+            <input
+              type="submit"
+              value="Next"
+              class="btn btn-primary next-btn"
+            />
+          </div>
+          <br />
+          <div class="row gx-0">
+            <div class="col days-price">$450 x 3d</div>
+            <div class="col car-price">$1,350</div>
+          </div>
+          <div class="row gx-0">
+            <div class="col days-price">Taxes & Fees</div>
+            <div class="col car-price">$122</div>
+          </div>
+          <hr />
+          <div class="row gx-0">
+            <div class="col total-crp Total-charges-crp">Total Charges</div>
+            <div class="col total-crp total-price-crp">$1,472</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
