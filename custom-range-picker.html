@@ -187,6 +187,11 @@
 
       <label for="endDateInput">End Date:</label>
       <input type="text" id="endDateInput" readonly />
+      <div id="pricePerDayDisplay"></div>
+      <div id="totalTaxFees"></div>
+      <div id="totalPricePerDayDisplay"></div>
+      <div id="totalPrice"></div>
+      <!-- New element to display the price -->
     </div>
 
     <!-- Calendar Popup -->
@@ -212,11 +217,21 @@
       const nextMonthBtn = document.getElementById("nextMonthBtn");
       const startDateInput = document.getElementById("startDateInput");
       const endDateInput = document.getElementById("endDateInput");
+      const pricePerDayDisplay = document.getElementById("pricePerDayDisplay"); // New element for displaying price
+      const totalPriceDisplay = document.getElementById(
+        "totalPricePerDayDisplay"
+      );
+      const taxAndFees = document.getElementById("totalTaxFees");
+      const totalPriceShow = document.getElementById("totalPrice");
 
       // Variables to store the current date and selected range
       let currentDate = new Date();
       let startDate = null;
       let endDate = null;
+
+      // Price per day
+      const pricePerDay = 450; // Set your price here
+      const taxesAndFees = 122; // Fixed taxes and fees
 
       // Open the calendar popup when clicking on the input fields
       startDateInput.addEventListener("click", function () {
@@ -224,6 +239,10 @@
         endDate = null;
         startDateInput.value = ""; // Clear the start date input field
         endDateInput.value = ""; // Clear the end date input field
+        pricePerDayDisplay.innerHTML = "";
+        taxAndFees.innerHTML = "";
+        totalPriceDisplay.innerHTML = "";
+        totalPriceShow.innerHTML = "";
         calendarPopup.style.display = "block";
         renderCalendar(currentDate); // Render the calendar with the current date
       });
@@ -233,6 +252,10 @@
         endDate = null;
         startDateInput.value = ""; // Clear the start date input field
         endDateInput.value = ""; // Clear the end date input field
+        pricePerDayDisplay.innerHTML = "";
+        taxAndFees.innerHTML = "";
+        totalPriceDisplay.innerHTML = "";
+        totalPriceShow.innerHTML = "";
         calendarPopup.style.display = "block";
         renderCalendar(currentDate); // Render the calendar with the current date
       });
@@ -385,11 +408,16 @@
                 endDate = null;
                 startDateInput.value = formatDate(startDate);
                 endDateInput.value = "";
+                pricePerDayDisplay.innerHTML = "";
+                taxAndFees.innerHTML = "";
+                totalPriceDisplay.innerHTML = "";
+                totalPriceShow.innerHTML = "";
               } else if (startDate && !endDate) {
                 if (dateObj >= startDate) {
                   if (isRangeValid(startDate, dateObj)) {
                     endDate = dateObj;
                     endDateInput.value = formatDate(endDate);
+                    calculateAndDisplayPrice(); // Calculate price after end date is selected
                     calendarPopup.style.display = "none";
                   } else {
                     alert(
@@ -427,8 +455,26 @@
         });
       }
 
-      // Example usage: Disable specific dates
-      disableSpecificDates(["2024-09-15", "2024-09-20", "2024-09-25"]); // Example disabled dates
+      // Function to calculate and display the price
+      function calculateAndDisplayPrice() {
+        if (startDate && endDate) {
+          const timeDiff = Math.abs(endDate - startDate);
+          const numOfDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1; // Number of days including start and end
+
+          const totalPrice = pricePerDay * numOfDays;
+          const totalCharges = totalPrice + taxesAndFees;
+
+          // Display the price breakdown
+          pricePerDayDisplay.innerHTML = `
+            $${pricePerDay} x ${numOfDays}d: $${totalPrice.toLocaleString()}`;
+          taxAndFees.innerHTML = `$${taxesAndFees}`;
+          totalPriceDisplay.innerHTML = `$${totalPrice.toLocaleString()}`;
+          totalPriceShow.innerHTML = `Charges: $${totalCharges.toLocaleString()}`;
+        }
+      }
+
+      // Call this function to disable specific dates
+      disableSpecificDates(["2024-09-19", "2024-09-20", "2024-09-21"]);
     </script>
   </body>
 </html>
