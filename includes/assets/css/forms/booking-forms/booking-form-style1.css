@@ -1,0 +1,51 @@
+small {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.actual-price {
+  font-size: 14px;
+  text-decoration: line-through;
+}
+
+.date-fields {
+  height: 50px;
+  border-radius: 8px 0px 0px 8px;
+  border-right: 0px;
+}
+
+.time-fields {
+  height: 50px;
+  border-radius: 0px 8px 8px 0px;
+}
+
+.date-fields[readonly] {
+  background-color: #ffffff;
+}
+
+.next-btn {
+  height: 50px;
+}
+
+.days-price,
+.car-price {
+  font-size: 16px;
+}
+
+.car-price,
+.total-price-crp {
+  text-align: right;
+}
+
+.total-crp {
+  font-weight: 700;
+}
+
+.display-pricing {
+  display: none;
+}
+
+#discountDisplay {
+  color: #28a745;
+  font-weight: 600;
+}
