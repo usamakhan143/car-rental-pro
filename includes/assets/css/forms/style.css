@@ -1,0 +1,8 @@
+.booking-form-warning {
+  color: red;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #ffcccc;
+  border: 1px solid red;
+  margin: 10px 0;
+}

@@ -6,6 +6,10 @@ add_action('wp_enqueue_scripts', 'enqueue_carRentalPro_styles', 20);
 
 function showBookingForm()
 {
+    if (!is_product()) {
+        // Show a message if it's not a product page
+        return '<div class="booking-form-warning">This booking form is only available for single product page.</div>';
+    }
     // Ensure constants are defined
     if (!defined('CARRENTAL_PLUGIN_URL') || !defined('CARRENTAL_PLUGIN_PATH')) {
         return '<div>Configuration error: Plugin constants not defined.</div>';
@@ -47,6 +51,8 @@ function showBookingForm()
     $product = wc_get_product(get_the_ID());
     $regular_price = $product->get_regular_price();
     $sale_price = $product->get_sale_price(); // Sale price (if on sale)
+    // Get WooCommerce currency symbol
+    $currency_symbol = get_woocommerce_currency_symbol();
     $pricing_data = array(
         'pricePerDay'      => $regular_price,
         'salePrice'        => $sale_price,
@@ -54,6 +60,7 @@ function showBookingForm()
         'weeklyDiscount'   => 0.15,
         'monthlyDiscount'  => 0.3,
         'currency'         => get_woocommerce_currency(), // Example of dynamic data
+        'currencySymbol'   => $currency_symbol,
         'userLoggedIn'     => is_user_logged_in(),
         // Add more dynamic data as needed
     );
@@ -107,18 +114,21 @@ function enqueue_carRentalPro_styles()
 
         // Register your plugin's styles
         $bootstrap5 = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css";
+        $formsGlobalCss = CARRENTAL_PLUGIN_URL . 'includes/assets/css/forms/style.css';
         $bookingFormStyle1 = CARRENTAL_PLUGIN_URL . 'includes/assets/css/forms/booking-forms/booking-form-style1.css';
         $customDatePicker = CARRENTAL_PLUGIN_URL . 'includes/assets/css/custom-date-picker/style1.css';
 
         wp_register_style('car-rental-pro-bootstrap5', $bootstrap5, array(), '1.0.0');
         wp_register_style('car-rental-pro-bookingFormStyle1', $bookingFormStyle1, array(), '1.0.0');
         wp_register_style('car-rental-pro-customDatePicker', $customDatePicker, array(), '1.0.0');
+        wp_register_style('car-rental-pro-formsGlobalCss', $formsGlobalCss, array(), '1.0.0');
 
 
         // Enqueue your plugin's styles
         wp_enqueue_style('car-rental-pro-bootstrap5');
         wp_enqueue_style('car-rental-pro-bookingFormStyle1');
         wp_enqueue_style('car-rental-pro-customDatePicker');
+        wp_enqueue_style('car-rental-pro-formsGlobalCss');
     }
 }
 

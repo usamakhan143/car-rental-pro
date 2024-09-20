@@ -25,9 +25,12 @@ const taxRate = CarRentalProData.taxRate;
 const weeklyDiscount = CarRentalProData.weeklyDiscount;
 const monthlyDiscount = CarRentalProData.monthlyDiscount;
 const pricePerDay = CarRentalProData.salePrice;
+const wooCurrency = CarRentalProData.currency;
+const wooCurrencySymbol = CarRentalProData.currencySymbol;
 
 // Example: Update the HTML with the pricePerDay and salePrice
-document.querySelector(".price-per-day").textContent = "$" + pricePerDay;
+document.querySelector(".price-per-day").textContent =
+  wooCurrencySymbol + pricePerDay;
 document.querySelector(".actual-price").textContent = salePrice
-  ? "$" + salePrice
-  : "$" + pricePerDay;
+  ? wooCurrencySymbol + salePrice
+  : wooCurrencySymbol + pricePerDay;

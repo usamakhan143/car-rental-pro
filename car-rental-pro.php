@@ -23,6 +23,26 @@ function custom_plugin_activation()
     }
 }
 
+function disable_woocommerce_deactivate_button()
+{
+    // Check if WooCommerce is active and the custom addon is not active
+    if (is_plugin_active('woocommerce/woocommerce.php') && !is_plugin_active(__FILE__)) {
+?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                // Disable the WooCommerce Deactivate button
+                var wc_deactivate_button = $('#the-list tr[data-slug="woocommerce"] .deactivate a');
+                wc_deactivate_button.addClass('disabled').attr('href', 'javascript:void(0);').css('pointer-events', 'none').css('opacity', '0.5');
+
+                // Optionally add a tooltip message
+                wc_deactivate_button.attr('title', 'You cannot deactivate WooCommerce until the custom addon is active.');
+            });
+        </script>
+<?php
+    }
+}
+add_action('admin_print_footer_scripts', 'disable_woocommerce_deactivate_button');
+
 if (!defined('ABSPATH')) {
     exit;
 }
