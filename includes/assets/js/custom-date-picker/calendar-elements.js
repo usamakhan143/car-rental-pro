@@ -14,8 +14,20 @@ const totalPriceShow = document.getElementById("totalPrice");
 const discountSec = document.querySelector(".discount-pricing-section");
 const discountType = document.getElementById("discount-type");
 const discountDisplay = document.getElementById("discountDisplay"); // New element to display discount
-
 // Variables to store the current date and selected range
 let currentDate = new Date();
 let startDate = null;
 let endDate = null;
+
+// Use the data as needed in your booking form logic
+const salePrice = CarRentalProData.pricePerDay;
+const taxRate = CarRentalProData.taxRate;
+const weeklyDiscount = CarRentalProData.weeklyDiscount;
+const monthlyDiscount = CarRentalProData.monthlyDiscount;
+const pricePerDay = CarRentalProData.salePrice;
+
+// Example: Update the HTML with the pricePerDay and salePrice
+document.querySelector(".price-per-day").textContent = "$" + pricePerDay;
+document.querySelector(".actual-price").textContent = salePrice
+  ? "$" + salePrice
+  : "$" + pricePerDay;
