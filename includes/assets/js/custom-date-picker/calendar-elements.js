@@ -14,6 +14,8 @@ const totalPriceShow = document.getElementById("totalPrice");
 const discountSec = document.querySelector(".discount-pricing-section");
 const discountType = document.getElementById("discount-type");
 const discountDisplay = document.getElementById("discountDisplay"); // New element to display discount
+const taxSec = document.querySelector(".taxes-pricing-section");
+
 // Variables to store the current date and selected range
 let currentDate = new Date();
 let startDate = null;

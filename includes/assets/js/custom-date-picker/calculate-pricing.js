@@ -23,7 +23,13 @@ function calculateAndDisplayPrice() {
     const totalPrice = totalPriceWithoutDiscount - discountValue;
 
     // Calculate taxes
-    const taxes = Math.round((totalPrice * taxRate) / 100);
+    let taxes = 0;
+    if (taxRate > 0) {
+      taxes = Math.round((totalPrice * taxRate) / 100);
+    } else {
+      taxes = 0;
+      taxSec.style.display = "none";
+    }
     const totalCharges = Math.round(totalPrice + taxes);
 
     document.querySelector(".display-pricing").style.display = "block";

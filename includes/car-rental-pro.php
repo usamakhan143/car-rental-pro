@@ -76,10 +76,21 @@ function showBookingForm()
         $monthlyDis = 0; // Default value if checkbox is unchecked
     }
 
+    // Tax rate Value
+    $is_taxesandfees_active = get_plugin_options_crp('is_taxandfees_active');
+    $taxandfeesPercentage = get_plugin_options_crp('taxandfees_percentage');
+
+    // Default to 0 if the checkbox is not active or the percentage is not set
+    if ($is_taxesandfees_active && isset($taxandfeesPercentage) && is_numeric($taxandfeesPercentage)) {
+        $taxrates = (float)$taxandfeesPercentage; // Cast to float
+    } else {
+        $taxrates = 0; // Default value if checkbox is unchecked
+    }
+
     $pricing_data = array(
         'pricePerDay'      => $regular_price,
         'salePrice'        => $sale_price,
-        'taxRate'          => 9,
+        'taxRate'          => $taxrates,
         'weeklyDiscount'   => $weeklyDis / 100,
         'monthlyDiscount'  => $monthlyDis / 100,
         'currency'         => get_woocommerce_currency(), // Example of dynamic data

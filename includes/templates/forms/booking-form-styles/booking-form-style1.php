@@ -54,9 +54,11 @@
                         <div class="col car-price" id="discountDisplay"></div>
                     </div>
                 </div>
-                <div class="row gx-0">
-                    <div class="col days-price">Taxes & Fees</div>
-                    <div class="col car-price" id="totalTaxFees"></div>
+                <div class="taxes-pricing-section">
+                    <div class="row gx-0">
+                        <div class="col days-price">Taxes & Fees</div>
+                        <div class="col car-price" id="totalTaxFees"></div>
+                    </div>
                 </div>
                 <hr />
                 <div class="row gx-0">

@@ -44,6 +44,17 @@ function create_options_page_crp()
                     )
                 ))
                 ->set_attribute('placeholder', 'Enter discount in percentage.')
+                ->set_attribute('type', 'number'), // Set the input type to number
+
+            Field::make('checkbox', 'is_taxandfees_active', __('Enable Taxes & Fees')),
+            Field::make('text', 'taxandfees_percentage', 'Tax & Fees:')
+                ->set_conditional_logic(array(
+                    array(
+                        'field' => 'is_taxandfees_active',
+                        'value' => true,
+                    )
+                ))
+                ->set_attribute('placeholder', 'Enter value in percentage.')
                 ->set_attribute('type', 'number') // Set the input type to number
 
 
