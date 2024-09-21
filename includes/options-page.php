@@ -24,5 +24,28 @@ function create_options_page_crp()
 
             Field::make('checkbox', 'carrental_pro_plugin_active', __('Active')),
 
+            Field::make('checkbox', 'is_weekly_discount_active', __('Enable Weekly Discount')),
+            Field::make('text', 'weekly_discount_percentage', 'Weekly Discount:')
+                ->set_conditional_logic(array(
+                    array(
+                        'field' => 'is_weekly_discount_active',
+                        'value' => true,
+                    )
+                ))
+                ->set_attribute('placeholder', 'Enter discount in percentage.')
+                ->set_attribute('type', 'number'), // Set the input type to number
+
+            Field::make('checkbox', 'is_monthly_discount_active', __('Enable Monthly Discount')),
+            Field::make('text', 'monthly_discount_percentage', 'Monthly Discount:')
+                ->set_conditional_logic(array(
+                    array(
+                        'field' => 'is_monthly_discount_active',
+                        'value' => true,
+                    )
+                ))
+                ->set_attribute('placeholder', 'Enter discount in percentage.')
+                ->set_attribute('type', 'number') // Set the input type to number
+
+
         ));
 }

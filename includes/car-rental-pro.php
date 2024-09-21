@@ -53,12 +53,35 @@ function showBookingForm()
     $sale_price = $product->get_sale_price(); // Sale price (if on sale)
     // Get WooCommerce currency symbol
     $currency_symbol = get_woocommerce_currency_symbol();
+
+    // Weekly Discount Value
+    $is_weekly_discount_active = get_plugin_options_crp('is_weekly_discount_active');
+    $weekly_discount_percentage = get_plugin_options_crp('weekly_discount_percentage');
+
+    // Default to 0 if the checkbox is not active or the percentage is not set
+    if ($is_weekly_discount_active && isset($weekly_discount_percentage) && is_numeric($weekly_discount_percentage)) {
+        $weeklyDis = (float)$weekly_discount_percentage; // Cast to float
+    } else {
+        $weeklyDis = 0; // Default value if checkbox is unchecked
+    }
+
+    // Monthly Discount Value
+    $is_monthly_discount_active = get_plugin_options_crp('is_monthly_discount_active');
+    $monthly_discount_percentage = get_plugin_options_crp('monthly_discount_percentage');
+
+    // Default to 0 if the checkbox is not active or the percentage is not set
+    if ($is_monthly_discount_active && isset($monthly_discount_percentage) && is_numeric($monthly_discount_percentage)) {
+        $monthlyDis = (float)$monthly_discount_percentage; // Cast to float
+    } else {
+        $monthlyDis = 0; // Default value if checkbox is unchecked
+    }
+
     $pricing_data = array(
         'pricePerDay'      => $regular_price,
         'salePrice'        => $sale_price,
         'taxRate'          => 9,
-        'weeklyDiscount'   => 0.15,
-        'monthlyDiscount'  => 0.3,
+        'weeklyDiscount'   => $weeklyDis / 100,
+        'monthlyDiscount'  => $monthlyDis / 100,
         'currency'         => get_woocommerce_currency(), // Example of dynamic data
         'currencySymbol'   => $currency_symbol,
         'userLoggedIn'     => is_user_logged_in(),

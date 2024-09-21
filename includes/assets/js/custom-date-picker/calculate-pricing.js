@@ -7,10 +7,12 @@ function calculateAndDisplayPrice() {
     // Calculate base price without discount
     let totalPriceWithoutDiscount = pricePerDay * numOfDays;
     let discountValue = 0;
-    if (numOfDays >= 30) {
+    if (numOfDays >= 30 && monthlyDiscount > 0) {
+      discountSec.style.display = "block";
       discountValue = Math.round(totalPriceWithoutDiscount * monthlyDiscount); // Monthly discount
       discountType.innerHTML = "Monthly Discount";
-    } else if (numOfDays >= 7) {
+    } else if (numOfDays >= 7 && weeklyDiscount > 0) {
+      discountSec.style.display = "block";
       discountValue = Math.round(totalPriceWithoutDiscount * weeklyDiscount); // Weekly discount
       discountType.innerHTML = "Weekly Discount";
     } else {
