@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flatpickr</title>
+
+    <!-- Include Flatpickr CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <!-- Include Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <style>
+    .date-picker {
+      max-width: 300px;
+      margin: 50px auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 100%;
+    }
+  </style>
+  <body>
+    <div class="date-picker">
+      <label for="startDate">Start Date:</label>
+      <input type="text" id="startDate" placeholder="Select Start Date" />
+
+      <label for="endDate">End Date:</label>
+      <input type="text" id="endDate" placeholder="Select End Date" />
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const startDateInput = document.getElementById("startDate");
+        const endDateInput = document.getElementById("endDate");
+
+        flatpickr(startDateInput, {
+          mode: "range", // Enables date range selection
+          dateFormat: "d/m/Y", // Custom date format
+          minDate: "today", // Disable all dates before today
+          onChange: function (selectedDates, dateStr, instance) {
+            if (selectedDates.length === 2) {
+              // Range selected
+              const startDate = selectedDates[0]; // First selected date
+              const endDate = selectedDates[1]; // Second selected date
+
+              // Set the values in respective fields
+              startDateInput.value = instance.formatDate(startDate, "d/m/Y");
+              endDateInput.value = instance.formatDate(endDate, "d/m/Y");
+            }
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
