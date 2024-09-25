@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>People Selector with Submit</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .people-selector-field {
+        position: relative;
+        max-width: 400px;
+        margin: 20px auto;
+      }
+
+      .people-selector-field input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+      }
+
+      .dropdown-content label {
+        font-size: 16px;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .dropdown-content select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+      }
+
+      .child-age-select {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      #confirmSelection {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      #confirmSelection:hover {
+        background-color: #45a049;
+      }
+
+      /* Submit Button */
+      .submit-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      .submit-btn:hover {
+        background-color: #0069d9;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .people-selector-field {
+          max-width: 100%;
+          padding: 10px;
+        }
+
+        .dropdown-content {
+          width: 100%;
+          padding: 15px;
+        }
+
+        #confirmSelection,
+        .submit-btn {
+          padding: 10px 15px;
+          font-size: 14px;
+        }
+
+        .dropdown-content select {
+          padding: 8px;
+          font-size: 14px;
+        }
+
+        .dropdown-content label {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .dropdown-content {
+          padding: 10px;
+        }
+
+        .people-selector-field input {
+          font-size: 14px;
+          padding: 10px;
+        }
+
+        .dropdown-content select {
+          padding: 8px;
+          font-size: 12px;
+        }
+
+        .dropdown-content label {
+          font-size: 12px;
+        }
+
+        #confirmSelection,
+        .submit-btn {
+          padding: 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="people-selector-field">
+      <input
+        type="text"
+        id="peopleInput"
+        placeholder="Select Rooms, Adults, Children"
+        readonly
+      />
+      <div id="peopleDropdown" class="dropdown-content">
+        <!-- Rooms Selector -->
+        <label for="rooms">Rooms:</label>
+        <select id="rooms">
+          <option value="1">1 Room</option>
+          <option value="2">2 Rooms</option>
+          <option value="3">3 Rooms</option>
+          <option value="4">4 Rooms</option>
+          <option value="5">5 Rooms</option>
+        </select>
+
+        <!-- Adults Selector -->
+        <label for="adults">Adults:</label>
+        <select id="adults">
+          <option value="1">1 Adult</option>
+          <option value="2">2 Adults</option>
+          <option value="3">3 Adults</option>
+          <option value="4">4 Adults</option>
+          <option value="5">5 Adults</option>
+        </select>
+
+        <!-- Children Selector -->
+        <label for="children">Children:</label>
+        <select id="children">
+          <option value="0">0 Children</option>
+          <option value="1">1 Child</option>
+          <option value="2">2 Children</option>
+          <option value="3">3 Children</option>
+          <option value="4">4 Children</option>
+          <option value="5">5 Children</option>
+        </select>
+
+        <!-- Child Age Dropdowns Container -->
+        <div id="childAgesContainer"></div>
+
+        <!-- Confirm Selection Button -->
+        <button id="confirmSelection">Confirm Selection</button>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button class="submit-btn" id="submitForm">Submit</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const peopleInput = document.getElementById("peopleInput");
+        const peopleDropdown = document.getElementById("peopleDropdown");
+        const childrenSelector = document.getElementById("children");
+        const childAgesContainer =
+          document.getElementById("childAgesContainer");
+        const confirmSelection = document.getElementById("confirmSelection");
+        const submitForm = document.getElementById("submitForm");
+
+        // Toggle the dropdown on input click
+        peopleInput.addEventListener("click", function () {
+          peopleDropdown.style.display =
+            peopleDropdown.style.display === "block" ? "none" : "block";
+        });
+
+        // Function to create age dropdowns based on the number of children selected
+        function createChildAgeSelectors(childrenCount) {
+          // Clear any existing child age selectors
+          childAgesContainer.innerHTML = "";
+
+          for (let i = 0; i < childrenCount; i++) {
+            const label = document.createElement("label");
+            label.textContent = `Child ${i + 1} Age:`;
+            label.className = "child-age-label";
+
+            const select = document.createElement("select");
+            select.className = "child-age-select";
+
+            for (let age = 1; age <= 17; age++) {
+              const option = document.createElement("option");
+              option.value = age;
+              option.textContent = `${age} year${age > 1 ? "s" : ""}`;
+              select.appendChild(option);
+            }
+
+            childAgesContainer.appendChild(label);
+            childAgesContainer.appendChild(select);
+          }
+        }
+
+        // Update child age selectors when the number of children changes
+        childrenSelector.addEventListener("change", function () {
+          const numberOfChildren = parseInt(this.value);
+          createChildAgeSelectors(numberOfChildren);
+        });
+
+        // Confirm selection and close the dropdown
+        confirmSelection.addEventListener("click", function () {
+          // Prevent the default button behavior
+          event.preventDefault();
+          const rooms = document.getElementById("rooms").value;
+          const adults = document.getElementById("adults").value;
+          const children = document.getElementById("children").value;
+
+          let summary = `${rooms} Room(s), ${adults} Adult(s), ${children} Child(ren)`;
+
+          // Add children ages to the summary
+          const childAgeSelectors =
+            childAgesContainer.getElementsByClassName("child-age-select");
+          if (childAgeSelectors.length > 0) {
+            let childAges = [];
+            for (let i = 0; i < childAgeSelectors.length; i++) {
+              childAges.push(childAgeSelectors[i].value);
+            }
+            summary += `, Ages: ${childAges.join(", ")}`;
+          }
+
+          // Set the input value with the summary and close the dropdown
+          peopleInput.value = summary;
+          peopleDropdown.style.display = "none";
+        });
+
+        // Hide dropdown when clicking outside
+        document.addEventListener("click", function (e) {
+          if (
+            !peopleInput.contains(e.target) &&
+            !peopleDropdown.contains(e.target)
+          ) {
+            peopleDropdown.style.display = "none";
+          }
+        });
+
+        // Handle form submission
+        submitForm.addEventListener("click", function () {
+          const rooms = document.getElementById("rooms").value;
+          const adults = document.getElementById("adults").value;
+          const children = document.getElementById("children").value;
+
+          let childAges = [];
+          const childAgeSelectors =
+            childAgesContainer.getElementsByClassName("child-age-select");
+          for (let i = 0; i < childAgeSelectors.length; i++) {
+            childAges.push(childAgeSelectors[i].value);
+          }
+
+          // Log values to console
+          console.log("Rooms:", rooms);
+          console.log("Adults:", adults);
+          console.log("Children:", children);
+          console.log("Children Ages:", childAges.join(","));
+        });
+      });
+    </script>
+  </body>
+</html>
