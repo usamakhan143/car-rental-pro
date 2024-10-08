@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Field Icon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <style>
+    .input-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .input-container i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .input-container input {
+      width: 100%;
+      padding: 10px 10px 10px 40px; /* Adjust padding for icon space */
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .input-container input:focus {
+      border-color: #007bff;
+    }
+
+    .input-container i.fa {
+      font-size: 18px;
+    }
+  </style>
+  <body>
+    <div class="input-container">
+      <label class="bootstrap-form-label">Destination</label>
+      <i class="icon fa fa-user"></i>
+      <input type="text" placeholder="Enter your username" />
+    </div>
+
+    <div class="input-container">
+      <i class="icon fa fa-lock"></i>
+      <input type="password" placeholder="Enter your password" />
+    </div>
+  </body>
+</html>
