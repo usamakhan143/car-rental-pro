@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Rental Checkout</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #fff;
+      }
+      .progress-container {
+        justify-content: center;
+        margin-top: 20px;
+        position: relative;
+      }
+      .step {
+        text-align: center;
+        z-index: 1;
+        position: relative;
+        width: 33%;
+      }
+      /*progressbar connectors*/
+      .step:after {
+        content: "";
+        width: 79%;
+        height: 1px;
+        background: #cfcfcf;
+        position: absolute;
+        left: -40%;
+        top: 24px;
+        z-index: 0;
+      }
+
+      .step:first-child:after {
+        /*connector not needed before the first step*/
+        content: none;
+      }
+      .step i {
+        font-size: 25px;
+        background-color: #e9ecef;
+        border-radius: 50%;
+        padding: 10px;
+        border: 2px solid #007bff;
+      }
+      .step.active i {
+        background-color: #007bff;
+        color: #fff;
+      }
+      .step p {
+        margin-top: 10px;
+      }
+      .checkout-container {
+        margin-top: 30px;
+      }
+      .checkout-card {
+        border: 1px solid #e9ecef;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+      }
+      .checkout-card img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .summary-details {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+      }
+      .summary-details h5 {
+        font-size: 16px;
+        margin-bottom: 15px;
+      }
+      .summary-details p {
+        margin: 5px 0;
+      }
+      .total-price {
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .footer {
+        margin-top: 30px;
+        text-align: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+      }
+      .stripe-badge {
+        text-align: right;
+      }
+      .stripe-badge img {
+        width: 100px;
+      }
+      @media (max-width: 768px) {
+        .step:after {
+          content: "";
+          width: 45%;
+          height: 1px;
+          background: #cfcfcf;
+          position: absolute;
+          left: -24%;
+          top: 24px;
+          z-index: 0;
+        }
+        .col-md-8,
+        .col-md-4 {
+          margin-bottom: 20px;
+        }
+        .step i {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Progress Bar -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="progress-container">
+            <div class="row">
+              <div class="step col active">
+                <i class="fas fa-check-circle"></i>
+                <p>Select</p>
+              </div>
+              <div class="step col">
+                <i class="fas fa-credit-card"></i>
+                <p>Pay</p>
+              </div>
+              <div class="step col">
+                <i class="fas fa-check"></i>
+                <p>Done</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <div class="container checkout-container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="checkout-card">
+            <h5>When & Where</h5>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Start date</label>
+                <input type="date" class="form-control" value="2024-10-22" />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Time</label>
+                <input type="time" class="form-control" value="10:00" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>End date</label>
+                <input type="date" class="form-control" value="2024-10-26" />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Time</label>
+                <input type="time" class="form-control" value="10:00" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <button class="btn btn-outline-primary">Pickup</button>
+                <button class="btn btn-outline-primary">Delivery</button>
+                <label class="ml-2"><input type="checkbox" /> One-way</label>
+              </div>
+            </div>
+
+            <h5>Customer Info</h5>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>First name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="First name"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Last name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Email address</label>
+                <input type="email" class="form-control" placeholder="Email" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Phone number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Phone number"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label>Select age</label>
+                <select class="form-control">
+                  <option>Select age</option>
+                  <option>18-25</option>
+                  <option>26-35</option>
+                  <option>36-50</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-block">Next</button>
+          </div>
+        </div>
+
+        <!-- Car Details -->
+        <div class="col-md-4">
+          <div class="checkout-card summary-details">
+            <h5>Corvette C8 Convertible 2023</h5>
+            <img src="https://via.placeholder.com/300x150" alt="Car image" />
+            <p>
+              <i class="fas fa-calendar-alt"></i> Oct 22, 2024 - Oct 26, 2024
+            </p>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 499 N Canon Dr, Beverly
+              Hills, CA 90210
+            </p>
+            <p>$450 x 4d: <span class="float-right">$1,800</span></p>
+            <p>Taxes & Fees: <span class="float-right">$162</span></p>
+            <p class="total-price">
+              Total Charges: <span class="float-right">$1,962</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>2024 © Falcon Beverly Hills LLC</p>
+      <div class="stripe-badge">
+        <img src="https://via.placeholder.com/100x50" alt="Powered by Stripe" />
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
