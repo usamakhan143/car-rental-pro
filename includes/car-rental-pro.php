@@ -53,6 +53,8 @@ function showBookingForm()
     $sale_price = $product->get_sale_price(); // Sale price (if on sale)
     // Get WooCommerce currency symbol
     $currency_symbol = get_woocommerce_currency_symbol();
+    // Unavailable dates
+    $dates_NA = get_plugin_options_crp('unavailable_dates');
 
     // Weekly Discount Value
     $is_weekly_discount_active = get_plugin_options_crp('is_weekly_discount_active');
@@ -96,6 +98,7 @@ function showBookingForm()
         'currency'         => get_woocommerce_currency(), // Example of dynamic data
         'currencySymbol'   => $currency_symbol,
         'userLoggedIn'     => is_user_logged_in(),
+        'dates_na'         => $dates_NA
         // Add more dynamic data as needed
     );
 
@@ -182,8 +185,23 @@ function carRentalProBeforeBodyClosingScripts()
         <script src="<?php echo CARRENTAL_PLUGIN_URL . 'includes/assets/js/custom-date-picker/calculate-pricing.js'; ?>"></script>
 
         <script>
-            // code here...
+            //code...
         </script>
 <?php
     }
+}
+
+add_action('woocommerce_single_product_summary', 'display_custom_dates_on_product_page', 25);
+
+function display_custom_dates_on_product_page()
+{
+    global $post;
+
+    // Retrieve the repeater field from Carbon Fields
+    $dates = carbon_get_post_meta($post->ID, 'unavailable_dates');
+
+    // Debugging: Check if the data is being retrieved
+    echo '<pre>';
+    print_r($dates); // This will output the raw data to check if it's being retrieved
+    echo '</pre>';
 }
