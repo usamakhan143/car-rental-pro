@@ -25,7 +25,7 @@ function custom_plugin_activation()
     $checkout_page = get_page_by_path('make-payment');
     if (!$checkout_page) {
         $checkout_page_id = wp_insert_post(array(
-            'post_title'   => 'Checkout',
+            'post_title'   => 'Vehicle Booking',
             'post_content' => '[checkout_page]',
             'post_status'  => 'publish',
             'post_type'    => 'page',
@@ -64,6 +64,27 @@ function disable_woocommerce_deactivate_button()
     }
 }
 add_action('admin_print_footer_scripts', 'disable_woocommerce_deactivate_button');
+
+// Plugin deactivation hook
+register_deactivation_hook(__FILE__, 'car_rental_pro_deactivate');
+function car_rental_pro_deactivate()
+{
+    // Check if the "Checkout" page exists
+    $checkout_page = get_page_by_path('vehicle-booking');
+
+    // If the page exists, delete it
+    if ($checkout_page) {
+        $deletedCheckout = wp_delete_post($checkout_page->ID, true);
+
+        if ($deletedCheckout) {
+            // Page deletion successful
+            error_log('Car rental pro checkout page deleted');
+        } else {
+            // Page deletion failed
+            error_log('Failed to delete Car rental pro Checkout page');
+        }
+    }
+}
 
 if (!defined('ABSPATH')) {
     exit;
