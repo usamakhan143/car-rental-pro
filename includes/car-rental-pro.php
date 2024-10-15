@@ -1,7 +1,9 @@
 <?php
 
-add_shortcode('booking_form_style_1', 'showBookingForm');
-add_action('wp_footer', 'carRentalProBeforeBodyClosingScripts', 9999);
+add_shortcode('booking_form_style_1', 'showBookingForm'); // Enqueue custom jQuery library in the footer
+
+add_action('wp_enqueue_scripts', 'carRentalProBeforeBodyClosingScripts');
+
 add_action('wp_enqueue_scripts', 'enqueue_carRentalPro_styles', 20);
 
 function showBookingForm()
@@ -125,14 +127,23 @@ function showBookingForm()
         true
     );
 
-    // Optionally enqueue additional scripts
-    // wp_enqueue_script(
-    //     'car-rental-pro-additional-scripts',
-    //     CARRENTAL_PLUGIN_URL . 'includes/assets/js/custom-date-picker/additional-scripts.js',
-    //     array('car-rental-pro-calculate-pricing'),
-    //     '1.0.0',
-    //     true
-    // );
+    // Optionally enqueue utilities scripts
+    wp_enqueue_script(
+        'car-rental-pro-utilities-scripts',
+        CARRENTAL_PLUGIN_URL . 'includes/assets/js/utilities.js',
+        array(), // Empty if there are no dependencies
+        '1.0.0',
+        true // Load in the footer
+    );
+
+    // enqueue Booking form scripts
+    wp_enqueue_script(
+        'car-rental-pro-booking-form-script',
+        CARRENTAL_PLUGIN_URL . 'includes/assets/js/booking-form/booking-form.js',
+        array('car-rental-pro-custom-date-picker'),
+        '1.0.0',
+        true
+    );
 
     // Output the booking form template
     ob_start(); // Start output buffering
@@ -171,24 +182,22 @@ function enqueue_carRentalPro_styles()
 
 function carRentalProBeforeBodyClosingScripts()
 {
-    if ((is_page() || is_single() || is_product() || is_singular()) && (has_shortcode(get_the_content(), 'booking_form_style_1'))) {
-?>
-        <script src="<?php echo CARRENTAL_PLUGIN_URL . 'includes/assets/js/custom-date-picker/calendar-elements.js'; ?>"> </script>
-        <script>
-            // Pricing Variables
-            const pricePerDay = 450; // Base price per day
-            const taxRate = 9; // Fixed taxes and fees percentage
-            const weeklyDiscount = 0.15; // 15% weekly discount for 7+ days
-            const monthlyDiscount = 0.3; // 30% monthly discount for 30+ days
-        </script>
-        <script src="<?php echo CARRENTAL_PLUGIN_URL . 'includes/assets/js/custom-date-picker/custom-date-picker.js'; ?>"> </script>
-        <script src="<?php echo CARRENTAL_PLUGIN_URL . 'includes/assets/js/custom-date-picker/calculate-pricing.js'; ?>"></script>
+    // Define the path to your custom jQuery library
+    wp_enqueue_script(
+        'car-rental-pro-jquery', // Handle name for your script
+        CARRENTAL_PLUGIN_URL . 'node_modules/jquery/dist/jquery.min.js', // Path to your custom jQuery file
+        array(), // Dependencies, leave empty if none
+        '1.0.0', // Version number, update as needed
+        true // Load in the footer
+    );
 
-        <script>
-            //code...
-        </script>
-<?php
-    }
+    // wp_enqueue_script(
+    //     'jquery-ui-min', // Handle name for your script
+    //     CARRENTAL_PLUGIN_URL . 'node_modules/jquery-ui/dist/jquery-ui.min.js', // Path to your custom jQuery file
+    //     array('car-rental-pro-jquery'), // Dependencies, leave empty if none
+    //     '1.0.0', // Version number, update as needed
+    //     true // Load in the footer
+    // );
 }
 
 add_action('woocommerce_single_product_summary', 'display_custom_dates_on_product_page', 25);
