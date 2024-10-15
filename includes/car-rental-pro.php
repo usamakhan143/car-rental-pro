@@ -232,7 +232,7 @@ function checkoutPageCssJs()
         $slug = get_post_field('post_name', get_queried_object_id());
 
         // Check if the slug matches 'abc'
-        if ($slug == 'car-checkout') {
+        if ($slug == 'vehicle-booking') {
 
             wp_enqueue_style(
                 'car-rental-pro-checkout-bootstrap',

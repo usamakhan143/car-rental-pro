@@ -21,6 +21,28 @@ function custom_plugin_activation()
         deactivate_plugins(plugin_basename(__FILE__)); // Deactivate your plugin
         wp_die('This plugin requires WooCommerce to be installed and activated.');
     }
+
+    $checkout_page = get_page_by_path('make-payment');
+    if (!$checkout_page) {
+        $checkout_page_id = wp_insert_post(array(
+            'post_title'   => 'Checkout',
+            'post_content' => '[checkout_page]',
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+            'post_name'    => 'vehicle-booking', // This sets the page slug
+        ));
+
+        if ($checkout_page_id) {
+            // Page creation successful
+            error_log('checkout page created with its ID. checkout ID:' . $checkout_page_id);
+        } else {
+            // Page creation failed
+            error_log('Failed to create Checkout page');
+        }
+    } else {
+        // Page already exists
+        error_log('checkout page already exists');
+    }
 }
 
 function disable_woocommerce_deactivate_button()
