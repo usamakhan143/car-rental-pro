@@ -1,8 +1,11 @@
 <?php
 
-add_shortcode('booking_form_style_1', 'showBookingForm'); // Enqueue custom jQuery library in the footer
+add_shortcode('booking_form_style_1', 'showBookingForm');
+add_shortcode('checkout_page', 'showCheckout');
 
+// Enqueue custom jQuery library in the footer
 add_action('wp_enqueue_scripts', 'carRentalProBeforeBodyClosingScripts');
+add_action('wp_enqueue_scripts', 'checkoutPageCssJs');
 
 add_action('wp_enqueue_scripts', 'enqueue_carRentalPro_styles', 20);
 
@@ -213,4 +216,60 @@ function display_custom_dates_on_product_page()
     echo '<pre>';
     print_r($dates); // This will output the raw data to check if it's being retrieved
     echo '</pre>';
+}
+
+
+function showCheckout()
+{
+    include CARRENTAL_PLUGIN_PATH . '/includes/templates/checkout/checkout.php';
+}
+
+function checkoutPageCssJs()
+{
+    // Check if we are on a single page
+    if (is_page()) {
+        // Get the current page slug
+        $slug = get_post_field('post_name', get_queried_object_id());
+
+        // Check if the slug matches 'abc'
+        if ($slug == 'car-checkout') {
+
+            wp_enqueue_style(
+                'car-rental-pro-checkout-bootstrap',
+                CARRENTAL_PLUGIN_URL . 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+                array(),
+                '1.0.0'
+            );
+
+            wp_enqueue_style(
+                'car-rental-pro-checkout-fontawesome',
+                CARRENTAL_PLUGIN_URL . 'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
+                array(),
+                '1.0.0'
+            );
+
+            wp_enqueue_style(
+                'car-rental-pro-checkout-css',
+                CARRENTAL_PLUGIN_URL . 'includes/assets/css/checkout/checkout.css',
+                array('car-rental-pro-checkout-bootstrap'),
+                '1.0.0'
+            );
+
+            wp_enqueue_script(
+                'car-rental-pro-checkout-page-script',
+                CARRENTAL_PLUGIN_URL . 'includes/assets/js/checkout/checkout.js',
+                array(),
+                '1.0.0',
+                true
+            );
+
+            wp_enqueue_script(
+                'car-rental-pro-checkout-page-bootsrap-script',
+                CARRENTAL_PLUGIN_URL . 'node_modules/bootstrap/dist/js/bootstrap.min.js',
+                array('car-rental-pro-checkout-css'),
+                '1.0.0',
+                true
+            );
+        }
+    }
 }

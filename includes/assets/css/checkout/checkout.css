@@ -160,6 +160,10 @@
   background-color: #5a6268;
   border-color: #545b62;
 }
+.vehicle-image {
+  height: 200px !important;
+  object-fit: cover;
+}
 @media (max-width: 768px) {
   .step:after {
     content: "";
