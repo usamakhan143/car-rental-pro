@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Car Rental Checkout</title>
     <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
     />
     <link
       rel="stylesheet"
@@ -98,6 +100,86 @@
       .stripe-badge img {
         width: 100px;
       }
+      #nextButton {
+        margin-top: 10px;
+      }
+      #oneWay {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+      }
+
+      /* Success Icon Animation */
+      .success-icon i {
+        animation: popIn 0.5s ease-in-out;
+      }
+
+      .error-icon i {
+        animation: popIn 0.5s ease-in-out;
+      }
+
+      /* Animation for success icon */
+      @keyframes popIn {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* Customizing the booking summary section */
+      .booking-summary {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+      }
+
+      .booking-summary h4 {
+        margin-bottom: 15px;
+      }
+
+      .list-group-item {
+        background-color: transparent;
+        border: none;
+        padding: 0.8rem 1.25rem;
+      }
+
+      .list-group-item strong {
+        color: #495057;
+      }
+
+      .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+
+      .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+      }
+
+      /* Button Styling */
+      .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+
+      .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+      }
+
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+      }
       @media (max-width: 768px) {
         .step:after {
           content: "";
@@ -126,15 +208,15 @@
         <div class="col-md-12">
           <div class="progress-container">
             <div class="row">
-              <div class="step col active">
+              <div class="step col active" id="step1">
                 <i class="fas fa-check-circle"></i>
                 <p>Select</p>
               </div>
-              <div class="step col">
+              <div class="step col" id="step2">
                 <i class="fas fa-credit-card"></i>
                 <p>Pay</p>
               </div>
-              <div class="step col">
+              <div class="step col" id="step3">
                 <i class="fas fa-check"></i>
                 <p>Done</p>
               </div>
@@ -149,81 +231,277 @@
       <div class="row">
         <div class="col-md-8">
           <div class="checkout-card">
-            <h5>When & Where</h5>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>Start date</label>
-                <input type="date" class="form-control" value="2024-10-22" />
+            <form id="step1Form" class="step-content">
+              <!-- <h5>When & Where</h5> -->
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Start date</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="2024-10-22"
+                    id="startDate"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Time</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="10:00"
+                    id="startTime"
+                    readonly
+                  />
+                </div>
               </div>
-              <div class="form-group col-md-6">
-                <label>Time</label>
-                <input type="time" class="form-control" value="10:00" />
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>End date</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="2024-10-26"
+                    id="endDate"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Time</label>
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control"
+                    value="10:00"
+                    id="endTime"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>End date</label>
-                <input type="date" class="form-control" value="2024-10-26" />
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="btn-group" role="group">
+                        <input
+                          type="radio"
+                          class="btn-check"
+                          name="btnradio"
+                          id="pickupRadio"
+                          autocomplete="off"
+                          checked
+                        />
+                        <label class="btn btn-outline-primary" for="pickupRadio"
+                          >Pickup</label
+                        >
+
+                        <input
+                          type="radio"
+                          class="btn-check"
+                          name="btnradio"
+                          id="deliveryRadio"
+                          autocomplete="off"
+                        />
+                        <label
+                          class="btn btn-outline-primary"
+                          for="deliveryRadio"
+                          >Delivery</label
+                        >
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="oneWay"
+                        />
+                        <label class="form-check-label" for="oneWay">
+                          One-way
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-md-6">
-                <label>Time</label>
-                <input type="time" class="form-control" value="10:00" />
+
+              <h5>Customer Info</h5>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>First name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    placeholder="First name"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Last name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    placeholder="Last name"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <button class="btn btn-outline-primary">Pickup</button>
-                <button class="btn btn-outline-primary">Delivery</button>
-                <label class="ml-2"><input type="checkbox" /> One-way</label>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>Email address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email"
+                    id="emailAddress"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Phone number</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Phone number"
+                    id="phoneNum"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Select age</label>
+                  <select class="form-control" id="selectAge">
+                    <option>Select age</option>
+                    <option value="18-25">18-25</option>
+                    <option value="26-35">26-35</option>
+                    <option value="36-50">36-50</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-grid gap-2">
+                <button id="nextButton" class="btn btn-primary btn-block">
+                  Next
+                </button>
+              </div>
+            </form>
+            <!-- Step 2: Payment Form -->
+            <form id="step2Form" class="step-content" style="display: none">
+              <h5>Payment Details</h5>
+              <!-- <div class="form-group">
+                <label for="cardName">Name on Card</label>
+                <input
+                  type="text"
+                  id="cardName"
+                  class="form-control"
+                  placeholder="Name on Card"
+                />
+              </div> -->
+              <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input
+                  type="text"
+                  id="cardNumber"
+                  class="form-control"
+                  placeholder="Card Number"
+                />
+              </div>
+              <div class="form-group">
+                <label for="expiry">Expiry Date</label>
+                <input
+                  type="text"
+                  id="expiry"
+                  class="form-control"
+                  placeholder="MM/YY"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input
+                  type="text"
+                  id="cvv"
+                  class="form-control"
+                  placeholder="CVV"
+                />
+              </div>
+
+              <button type="button" class="btn btn-primary" id="prevButton">
+                Back
+              </button>
+              <button type="submit" class="btn btn-success">Pay Now</button>
+            </form>
+
+            <div class="container mt-5" id="step3Form" style="display: none">
+              <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                  <!-- Success Icon -->
+                  <div class="success-icon mb-4">
+                    <i
+                      class="fa fa-check-circle"
+                      aria-hidden="true"
+                      style="font-size: 5rem; color: #28a745"
+                    ></i>
+                  </div>
+
+                  <!-- Success Message -->
+                  <h2 class="text-success">Payment Successful!</h2>
+                  <p class="lead mt-3">
+                    Thank you for your purchase! Your payment has been processed
+                    successfully.
+                  </p>
+                  <p>
+                    We hope you enjoy your booking and have a wonderful
+                    experience!
+                  </p>
+
+                  <!-- Return to Home Button -->
+                  <div class="mt-4">
+                    <a href="#" class="btn btn-success btn-lg">
+                      <i class="fa fa-home mr-2"></i> Return to Home
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <h5>Customer Info</h5>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>First name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="First name"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label>Last name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Last name"
-                />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label>Email address</label>
-                <input type="email" class="form-control" placeholder="Email" />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>Phone number</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Phone number"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label>Select age</label>
-                <select class="form-control">
-                  <option>Select age</option>
-                  <option>18-25</option>
-                  <option>26-35</option>
-                  <option>36-50</option>
-                </select>
-              </div>
-            </div>
+            <div
+              class="container mt-5"
+              id="step3FailedForm"
+              style="display: none"
+            >
+              <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                  <!-- Error Icon -->
+                  <div class="error-icon mb-4">
+                    <i
+                      class="fa fa-times-circle"
+                      aria-hidden="true"
+                      style="font-size: 5rem; color: #dc3545"
+                    ></i>
+                  </div>
 
-            <button class="btn btn-primary btn-block">Next</button>
+                  <!-- Payment Failed Message -->
+                  <h2 class="text-danger">Payment Failed</h2>
+                  <p class="lead mt-3">
+                    Unfortunately, your payment could not be processed.
+                  </p>
+                  <p>Please check your payment details and try again.</p>
+
+                  <!-- Retry Payment Button -->
+                  <div class="mt-4">
+                    <button id="retryButton" class="btn btn-danger btn-lg">
+                      <i class="fa fa-redo mr-2"></i> Retry Payment
+                    </button>
+                  </div>
+
+                  <!-- Return to Home Button -->
+                  <div class="mt-3">
+                    <a href="/" class="btn btn-secondary btn-lg">
+                      <i class="fa fa-home mr-2"></i> Return to Home
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -251,14 +529,117 @@
 
     <!-- Footer -->
     <div class="footer">
-      <p>2024 © Falcon Beverly Hills LLC</p>
+      <p>2024 © YP Auto Rental</p>
       <div class="stripe-badge">
-        <img src="https://via.placeholder.com/100x50" alt="Powered by Stripe" />
+        <!-- <img src="https://via.placeholder.com/100x50" alt="Powered by Stripe" /> -->
       </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      // Stepper Navigation
+      document
+        .getElementById("nextButton")
+        .addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent the form from submitting
+          document.getElementById("step1Form").style.display = "none";
+          document.getElementById("step2Form").style.display = "block";
+          document.getElementById("step3Form").style.display = "none";
+
+          // Change stepper active state
+          document.getElementById("step1").classList.remove("active");
+          document.getElementById("step2").classList.add("active");
+        });
+
+      document
+        .getElementById("prevButton")
+        .addEventListener("click", function () {
+          document.getElementById("step1Form").style.display = "block";
+          document.getElementById("step2Form").style.display = "none";
+          document.getElementById("step3Form").style.display = "none";
+          // Change stepper active state
+          document.getElementById("step2").classList.remove("active");
+          document.getElementById("step1").classList.add("active");
+        });
+
+      // Payment form submission
+      document
+        .getElementById("step2Form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent the form from submitting
+
+          // Collect values from Step 1 form
+          const startDate = document.getElementById("startDate").value;
+          const endDate = document.getElementById("endDate").value;
+          const pickup = document.getElementById("pickupRadio").value;
+          const oneWay = document.getElementById("oneWay").value;
+          const firstName = document.getElementById("firstName").value;
+          const lastName = document.getElementById("lastName").value;
+          const emailAddress = document.getElementById("emailAddress").value;
+          const phoneNumber = document.getElementById("phoneNum").value;
+          const selectAge = document.getElementById("selectAge").value;
+
+          // Collect values from Step 2 (Payment) form
+          // const cardName = document.getElementById("cardName").value;
+          const cardNumber = document.getElementById("cardNumber").value;
+          const expiry = document.getElementById("expiry").value;
+          const cvv = document.getElementById("cvv").value;
+
+          // Log all values to the console
+          console.log("Start Date:", startDate);
+          console.log("End Date:", endDate);
+          console.log("Pickup/Delivery:", pickup);
+          console.log("Customer Name:", firstName, lastName);
+          console.log("Email:", emailAddress);
+          console.log("Phone:", phoneNumber);
+
+          // console.log("Name on Card:", cardName);
+          console.log("Card Number:", cardNumber);
+          console.log("Expiry Date:", expiry);
+          console.log("CVV:", cvv);
+
+          document.getElementById("step2Form").style.display = "none";
+          document.getElementById("step2").classList.remove("active");
+          document.getElementById("step3").classList.add("active");
+          // Call this function when the payment is successful
+          showSuccessStep();
+          showFailedStep();
+          // Here you can add your payment processing logic or Stripe integration
+        });
+
+      // Show the third stepper with a smooth fade-in effect
+      function showSuccessStep() {
+        const step3Form = document.getElementById("step3Form");
+        step3Form.style.display = "block";
+        step3Form.style.opacity = 0;
+        let opacity = 0;
+        const fadeIn = setInterval(function () {
+          if (opacity >= 1) {
+            clearInterval(fadeIn);
+          }
+          step3Form.style.opacity = opacity;
+          opacity += 0.1;
+        }, 50);
+      }
+
+      // Show the third stepper with a smooth fade-in effect
+      function showFailedStep() {
+        document.getElementById("step3Form").style.display = "none";
+        const step3Form = document.getElementById("step3FailedForm");
+        step3Form.style.display = "block";
+        step3Form.style.opacity = 0;
+        let opacity = 0;
+        const fadeIn = setInterval(function () {
+          if (opacity >= 1) {
+            clearInterval(fadeIn);
+          }
+          step3Form.style.opacity = opacity;
+          opacity += 0.1;
+        }, 50);
+      }
+    </script>
   </body>
 </html>
