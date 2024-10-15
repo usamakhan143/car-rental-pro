@@ -1,0 +1,181 @@
+.progress-container {
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+}
+.step {
+  text-align: center;
+  z-index: 1;
+  position: relative;
+  width: 33%;
+}
+/*progressbar connectors*/
+.step:after {
+  content: "";
+  width: 79%;
+  height: 1px;
+  background: #cfcfcf;
+  position: absolute;
+  left: -40%;
+  top: 24px;
+  z-index: 0;
+}
+
+.step:first-child:after {
+  /*connector not needed before the first step*/
+  content: none;
+}
+.step i {
+  font-size: 25px;
+  background-color: #e9ecef;
+  border-radius: 50%;
+  padding: 10px;
+  border: 2px solid #007bff;
+}
+.step.active i {
+  background-color: #007bff;
+  color: #fff;
+}
+.step p {
+  margin-top: 10px;
+}
+.checkout-container {
+  margin-top: 30px;
+}
+.checkout-card {
+  border: 1px solid #e9ecef;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.checkout-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+.summary-details {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+}
+.summary-details h5 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.summary-details p {
+  margin: 5px 0;
+}
+.total-price {
+  font-weight: bold;
+  font-size: 18px;
+}
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+.stripe-badge {
+  text-align: right;
+}
+.stripe-badge img {
+  width: 100px;
+}
+#nextButton {
+  margin-top: 10px;
+}
+#oneWay {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+/* Success Icon Animation */
+.success-icon i {
+  animation: popIn 0.5s ease-in-out;
+}
+
+.error-icon i {
+  animation: popIn 0.5s ease-in-out;
+}
+
+/* Animation for success icon */
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Customizing the booking summary section */
+.booking-summary {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.booking-summary h4 {
+  margin-bottom: 15px;
+}
+
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  padding: 0.8rem 1.25rem;
+}
+
+.list-group-item strong {
+  color: #495057;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+/* Button Styling */
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+@media (max-width: 768px) {
+  .step:after {
+    content: "";
+    width: 45%;
+    height: 1px;
+    background: #cfcfcf;
+    position: absolute;
+    left: -24%;
+    top: 24px;
+    z-index: 0;
+  }
+  .col-md-8,
+  .col-md-4 {
+    margin-bottom: 20px;
+  }
+  .step i {
+    font-size: 20px;
+  }
+}
