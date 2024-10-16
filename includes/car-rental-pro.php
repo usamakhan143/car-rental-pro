@@ -130,15 +130,6 @@ function showBookingForm()
         true
     );
 
-    // Optionally enqueue utilities scripts
-    wp_enqueue_script(
-        'car-rental-pro-utilities-scripts',
-        CARRENTAL_PLUGIN_URL . 'includes/assets/js/utilities.js',
-        array(), // Empty if there are no dependencies
-        '1.0.0',
-        true // Load in the footer
-    );
-
     // enqueue Booking form scripts
     wp_enqueue_script(
         'car-rental-pro-booking-form-script',
@@ -194,13 +185,14 @@ function carRentalProBeforeBodyClosingScripts()
         true // Load in the footer
     );
 
-    // wp_enqueue_script(
-    //     'jquery-ui-min', // Handle name for your script
-    //     CARRENTAL_PLUGIN_URL . 'node_modules/jquery-ui/dist/jquery-ui.min.js', // Path to your custom jQuery file
-    //     array('car-rental-pro-jquery'), // Dependencies, leave empty if none
-    //     '1.0.0', // Version number, update as needed
-    //     true // Load in the footer
-    // );
+    // Optionally enqueue utilities scripts
+    wp_enqueue_script(
+        'car-rental-pro-utilities-scripts',
+        CARRENTAL_PLUGIN_URL . 'includes/assets/js/utilities.js',
+        array(), // Empty if there are no dependencies
+        '1.0.0',
+        true // Load in the footer
+    );
 }
 
 add_action('woocommerce_single_product_summary', 'display_custom_dates_on_product_page', 25);

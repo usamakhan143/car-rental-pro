@@ -1,5 +1,3 @@
-console.log("Shapatar");
-
 // Stepper Navigation
 document.getElementById("nextButton").addEventListener("click", function (e) {
   e.preventDefault(); // Prevent the form from submitting

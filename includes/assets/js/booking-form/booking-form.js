@@ -31,6 +31,12 @@ $('form[name="booking-form-style1"]').submit(function (event) {
   // Display Text for perday price
   const pricePerDayText = $("#pricePerDayDisplay").text();
 
+  // Display Vehicle Name
+  const vehicleName = $(".product_title").text();
+
+  // Display Vehicle image
+  const vehicleImage = $(".wp-post-image").attr("src");
+
   console.log(startDate + ": " + startTime);
   console.log(endDate + ": " + endTime);
   console.log("No. of days: " + daysDifference);
@@ -39,4 +45,26 @@ $('form[name="booking-form-style1"]').submit(function (event) {
   console.log("Discount type: " + discountType);
   console.log("Discount: " + discount);
   console.log("Price per day text: " + pricePerDayText);
+
+  const vehicleDetail = {
+    image: vehicleImage,
+    name: vehicleName,
+    startDate: startDate,
+    startTime: startTime,
+    endDate: endDate,
+    endTime: endTime,
+    pricePerDayText: pricePerDayText,
+    discountType: discountType,
+    discount: discount,
+    taxAndFees: taxFees,
+    totalCharges: totalCharges,
+  };
+
+  storeDataInLocalStorage(vehicleDetail);
+
+  if (location.host !== "localhost") {
+    window.location.href = location.origin + "/" + "vehicle-booking";
+  } else {
+    window.location.href = location.origin + "/wpplugindev/vehicle-booking";
+  }
 });
