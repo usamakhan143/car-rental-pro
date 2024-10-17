@@ -62,6 +62,53 @@ document.getElementById("step2Form").addEventListener("submit", function (e) {
   // Here you can add your payment processing logic or Stripe integration
 });
 
+$(document).ready(function () {
+  vehicleDetails = getDataFromLocalStorage("vehicleDetails");
+  const currency = vehicleDetails.currency;
+  console.log(vehicleDetails, "Jani");
+
+  // Vehicle Name
+  $(".vehicle-name").text(vehicleDetails.name);
+
+  // Image
+  $(".vehicle-image").attr("src", vehicleDetails.image);
+
+  // Checkin - Checkout dates
+  $(".checkin-checkout-dates").text(
+    formatDate(vehicleDetails.startDate) +
+      " - " +
+      formatDate(vehicleDetails.endDate)
+  );
+
+  // Text: $200 x 10d: $2,000
+  $(".per-day-price-with-num-of-days").text(
+    vehicleDetails.pricePerDayText + ": "
+  );
+  let perDayPriceVal = $("<span class='float-right'></span>").text(
+    currency + formatPrice(vehicleDetails.vehiclePrice)
+  );
+  $(".per-day-price-with-num-of-days").append(perDayPriceVal);
+  // Taxes and Fees
+  if (vehicleDetails.taxAndFees > 0) {
+    $(".taxes-fees-included").text(
+      currency + formatPrice(vehicleDetails.taxAndFees)
+    );
+  } else {
+    $(".tax-container").text(" ");
+  }
+
+  // Discounts
+  if (vehicleDetails.discount > 0) {
+    $(".discount-type").text(
+      vehicleDetails.discountType + ": -" + currency + vehicleDetails.discount
+    );
+  } else {
+    $(".discount-type").text(" ");
+  }
+  // Total Charges
+  $(".total-charges").text(currency + formatPrice(vehicleDetails.totalCharges));
+});
+
 // Show the third stepper with a smooth fade-in effect
 function showSuccessStep() {
   const step3Form = document.getElementById("step3Form");

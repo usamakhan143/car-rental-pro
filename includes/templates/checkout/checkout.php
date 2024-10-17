@@ -6,7 +6,7 @@
                    <div class="row">
                        <div class="step col active" id="step1">
                            <i class="fas fa-check-circle"></i>
-                           <p>Select</p>
+                           <p>Customer Info</p>
                        </div>
                        <div class="step col" id="step2">
                            <i class="fas fa-credit-card"></i>
@@ -29,7 +29,7 @@
                <div class="checkout-card">
                    <form id="step1Form" class="step-content">
                        <!-- <h5>When & Where</h5> -->
-                       <div class="row">
+                       <!-- <div class="row">
                            <div class="form-group col-md-6">
                                <label>Start date</label>
                                <input
@@ -68,7 +68,7 @@
                                    value="10:00"
                                    id="endTime" />
                            </div>
-                       </div>
+                       </div> -->
                        <div class="row">
                            <div class="form-group col-md-12">
                                <div class="row">
@@ -202,10 +202,10 @@
                                placeholder="CVV" />
                        </div>
 
-                       <button type="button" class="btn btn-primary" id="prevButton">
+                       <button type="button" class="btn btn-primary prev-btn" id="prevButton">
                            Back
                        </button>
-                       <button type="submit" class="btn btn-success">Pay Now</button>
+                       <button type="submit" class="btn btn-success pay-now-btn">Pay Now</button>
                    </form>
 
                    <div class="container mt-5" id="step3Form" style="display: none">
@@ -283,22 +283,23 @@
            <!-- Car Details -->
            <div class="col-md-4">
                <div class="checkout-card summary-details">
-                   <h5>Corvette C8 Convertible 2023</h5>
+                   <h5 class="vehicle-name">Corvette C8 Convertible 2023</h5>
                    <img
                        src="https://d2j40m88aovabi.cloudfront.net/storage/app/public/high_resolution_image/d7b68310d7680c7a3797c7a9c3664c12.jpeg"
                        alt="Car image"
                        class="vehicle-image" />
                    <p>
-                       <i class="fas fa-calendar-alt"></i> Oct 22, 2024 - Oct 26, 2024
+                       <i class="fas fa-calendar-alt"></i> <span class="checkin-checkout-dates">Oct 22, 2024 - Oct 26, 2024</span>
                    </p>
                    <p>
                        <i class="fas fa-map-marker-alt"></i> 499 N Canon Dr, Beverly
                        Hills, CA 90210
                    </p>
-                   <p>$450 x 4d: <span class="float-right">$1,800</span></p>
-                   <p>Taxes & Fees: <span class="float-right">$162</span></p>
+                   <p class="per-day-price-with-num-of-days">$450 x 4d: <span class="float-right">$1,800</span></p>
+                   <p class="discount-type">Weekly Discount: <span class="float-right discount-value">-$1,800</span></p>
+                   <p class="tax-container">Taxes & Fees: <span class="float-right taxes-fees-included">$162</span></p>
                    <p class="total-price">
-                       Total Charges: <span class="float-right">$1,962</span>
+                       Total Charges: <span class="float-right total-charges">$1,962</span>
                    </p>
                </div>
            </div>

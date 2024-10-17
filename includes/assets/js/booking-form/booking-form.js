@@ -28,7 +28,7 @@ $('form[name="booking-form-style1"]').submit(function (event) {
   // Convert time difference from milliseconds to days (1 day = 24 * 60 * 60 * 1000 ms)
   let daysDifference = timeDifference / (1000 * 3600 * 24) + 1;
 
-  // Display Text for perday price
+  // Display Text for per day price
   const pricePerDayText = $("#pricePerDayDisplay").text();
 
   // Display Vehicle Name
@@ -36,6 +36,12 @@ $('form[name="booking-form-style1"]').submit(function (event) {
 
   // Display Vehicle image
   const vehicleImage = $(".wp-post-image").attr("src");
+
+  const vehiclePriceText = $(".car-price").text();
+  const vehiclePrice = parseFloat(vehiclePriceText.replace("$", ""));
+
+  // Currency Symbol
+  const currencySymbol = "$";
 
   console.log(startDate + ": " + startTime);
   console.log(endDate + ": " + endTime);
@@ -57,7 +63,9 @@ $('form[name="booking-form-style1"]').submit(function (event) {
     discountType: discountType,
     discount: discount,
     taxAndFees: taxFees,
+    vehiclePrice: vehiclePrice,
     totalCharges: totalCharges,
+    currency: currencySymbol,
   };
 
   storeDataInLocalStorage(vehicleDetail);

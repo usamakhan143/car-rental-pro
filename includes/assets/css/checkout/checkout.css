@@ -164,13 +164,33 @@
   height: 200px !important;
   object-fit: cover;
 }
+
+.prev-btn {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #fff !important;
+  margin-top: 10px;
+}
+
+.pay-now-btn {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #fff !important;
+  margin-top: 10px;
+}
+
+.prev-btn:hover,
+.pay-now-btn:hover {
+  background-color: #3094ff !important;
+}
+
 @media (max-width: 768px) {
   .step:after {
     content: "";
     width: 45%;
     height: 1px;
     background: #cfcfcf;
-    position: absolute;
+    position: absolute;x
     left: -24%;
     top: 24px;
     z-index: 0;
