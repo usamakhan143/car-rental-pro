@@ -22,17 +22,26 @@ let startDate = null;
 let endDate = null;
 
 // Use the data as needed in your booking form logic
-const salePrice = CarRentalProData.pricePerDay;
+const regularPrice = CarRentalProData.regularPrice;
 const taxRate = CarRentalProData.taxRate;
 const weeklyDiscount = CarRentalProData.weeklyDiscount;
 const monthlyDiscount = CarRentalProData.monthlyDiscount;
-const pricePerDay = CarRentalProData.salePrice;
+const salePrice = CarRentalProData.salePrice;
 const wooCurrency = CarRentalProData.currency;
 const wooCurrencySymbol = CarRentalProData.currencySymbol;
-
+let priceTobeCalculated;
 // Example: Update the HTML with the pricePerDay and salePrice
-document.querySelector(".price-per-day").textContent =
-  wooCurrencySymbol + pricePerDay;
-document.querySelector(".actual-price").textContent = salePrice
-  ? wooCurrencySymbol + salePrice
-  : wooCurrencySymbol + pricePerDay;
+if (salePrice !== "") {
+  priceTobeCalculated = salePrice;
+
+  document.querySelector(".price-per-day").textContent =
+    wooCurrencySymbol + salePrice;
+  document.querySelector(".actual-price").textContent = regularPrice + " /day";
+} else {
+  priceTobeCalculated = regularPrice;
+
+  document.querySelector(".price-per-day").textContent =
+    wooCurrencySymbol + regularPrice + "/day";
+  document.querySelector(".actual-price").textContent = "";
+}
+clearLocalStorageObject("vehicleDetails");

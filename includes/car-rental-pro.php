@@ -95,7 +95,7 @@ function showBookingForm()
     }
 
     $pricing_data = array(
-        'pricePerDay'      => $regular_price,
+        'regularPrice'      => $regular_price,
         'salePrice'        => $sale_price,
         'taxRate'          => $taxrates,
         'weeklyDiscount'   => $weeklyDis / 100,

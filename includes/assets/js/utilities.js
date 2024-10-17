@@ -52,3 +52,12 @@ function formatDate(dateStr) {
   // Display the formatted date
   return formattedDate;
 }
+
+function isVehicleDetailAvailable() {
+  // Check if 'formData' exists in localStorage
+  if (localStorage.getItem("vehicleDetails")) {
+    return true;
+  } else {
+    return false;
+  }
+}

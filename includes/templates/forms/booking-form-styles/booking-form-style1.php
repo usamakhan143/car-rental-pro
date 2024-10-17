@@ -2,7 +2,7 @@
     <div class="col">
         <div class="shadow p-3 mb-5 bg-white rounded">
             <h3>
-                <span class="price-per-day">NaN</span> <small><span class="actual-price">$NaN</span>/day</small>
+                <span class="price-per-day">NaN</span> <small><span class="actual-price">$NaN</span></small>
             </h3>
             <form name="booking-form-style1">
                 <div class="row gx-0">

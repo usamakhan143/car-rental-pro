@@ -5,7 +5,7 @@ function calculateAndDisplayPrice() {
     const numOfDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1; // Number of days
 
     // Calculate base price without discount
-    let totalPriceWithoutDiscount = pricePerDay * numOfDays;
+    let totalPriceWithoutDiscount = priceTobeCalculated * numOfDays;
     let discountValue = 0;
     if (numOfDays >= 30 && monthlyDiscount > 0) {
       discountSec.style.display = "block";
@@ -35,7 +35,7 @@ function calculateAndDisplayPrice() {
     document.querySelector(".display-pricing").style.display = "block";
 
     // Display pricing breakdown
-    pricePerDayDisplay.innerHTML = `$${pricePerDay} x ${numOfDays}d`;
+    pricePerDayDisplay.innerHTML = `$${priceTobeCalculated} x ${numOfDays}d`;
     discountDisplay.innerHTML = `-$${discountValue}`;
     totalPriceDisplay.innerHTML = `$${totalPriceWithoutDiscount}`;
     taxAndFees.innerHTML = `$${taxes}`;
