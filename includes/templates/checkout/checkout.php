@@ -74,13 +74,14 @@
                                <div class="form-group col-md-12">
                                    <div class="row">
                                        <div class="col-md-6">
-                                           <div class="btn-group" role="group">
+                                           <div class="btn-group" role="group" id="radioGroup">
                                                <input
                                                    type="radio"
                                                    class="btn-check"
                                                    name="btnradio"
                                                    id="pickupRadio"
                                                    autocomplete="off"
+                                                   value="pickup"
                                                    checked />
                                                <label class="btn btn-outline-primary" for="pickupRadio">Pickup</label>
 
@@ -89,6 +90,7 @@
                                                    class="btn-check"
                                                    name="btnradio"
                                                    id="deliveryRadio"
+                                                   value="delivery"
                                                    autocomplete="off" />
                                                <label
                                                    class="btn btn-outline-primary"
@@ -101,7 +103,6 @@
                                                <input
                                                    class="form-check-input"
                                                    type="checkbox"
-                                                   value=""
                                                    id="oneWay" />
                                                <label class="form-check-label" for="oneWay">
                                                    One-way

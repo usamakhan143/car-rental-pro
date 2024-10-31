@@ -61,3 +61,8 @@ function isVehicleDetailAvailable() {
     return false;
   }
 }
+
+// Oneway Checkbox
+function getOnewayCheckboxState() {
+  return $("#oneWay").is(":checked"); // Returns true if checked, false if unchecked
+}
