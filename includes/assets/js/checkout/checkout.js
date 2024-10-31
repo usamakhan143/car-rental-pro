@@ -5,6 +5,26 @@ if (isVehicleDetailAvailable()) {
     const currency = vehicleDetails.currency;
     console.log(vehicleDetails, "Jani");
 
+    $('input[name="btnradio"]').change(function () {
+      if ($(this).val() === "delivery") {
+        $("#delivery-address-container").show();
+      } else {
+        $("#delivery-address-container").hide();
+      }
+    });
+
+    // Handle checkbox change
+    $("#oneWay").change(function () {
+      if ($(this).is(":checked")) {
+        $("#return-address-container").show();
+        $("#delivery-address").attr("placeholder", "Delivery Address");
+      } else {
+        $("#return-address-container").hide();
+
+        $("#delivery-address").attr("placeholder", "Delivery & return address");
+      }
+    });
+
     document
       .getElementById("nextButton")
       .addEventListener("click", function (e) {
@@ -50,6 +70,7 @@ if (isVehicleDetailAvailable()) {
               pickup = event.target.value;
             }
           });
+
         const oneWay = $("#oneWay").change(function () {
           console.log(getOnewayCheckboxState());
         });
@@ -58,6 +79,9 @@ if (isVehicleDetailAvailable()) {
         const emailAddress = document.getElementById("emailAddress").value;
         const phoneNumber = document.getElementById("phoneNum").value;
         const selectAge = document.getElementById("selectAge").value;
+        const deliveryAddress =
+          document.getElementById("delivery-address").value;
+        const returnAddress = document.getElementById("return-address").value;
 
         // Collect values from Step 2 (Payment) form
         // const cardName = document.getElementById("cardName").value;
@@ -74,6 +98,8 @@ if (isVehicleDetailAvailable()) {
         console.log("Customer Name:", firstName, lastName);
         console.log("Email:", emailAddress);
         console.log("Phone:", phoneNumber);
+        console.log("return address:", returnAddress);
+        console.log("delivery address:", deliveryAddress);
 
         // console.log("Name on Card:", cardName);
         console.log("Card Number:", cardNumber);

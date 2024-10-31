@@ -96,6 +96,7 @@
                                                    class="btn btn-outline-primary"
                                                    for="deliveryRadio">Delivery</label>
                                            </div>
+
                                        </div>
 
                                        <div class="col-md-6">
@@ -108,6 +109,27 @@
                                                    One-way
                                                </label>
                                            </div>
+                                       </div>
+
+
+                                       <div class="form-group col-md-12" style="display: none;"
+                                           id="delivery-address-container">
+                                           <label>Delivery Address</label>
+                                           <input
+                                               type="text"
+                                               class="form-control"
+                                               id="delivery-address"
+                                               placeholder="Delivery & return address" />
+                                       </div>
+
+
+                                       <div class="form-group col-md-12" id="return-address-container" style="display: none;">
+                                           <label>Return Address</label>
+                                           <input
+                                               type="text"
+                                               class="form-control"
+                                               id="return-address"
+                                               placeholder="Return Address" />
                                        </div>
                                    </div>
                                </div>
