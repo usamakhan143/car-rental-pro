@@ -1,6 +1,7 @@
 $('form[name="booking-form-style1"]').submit(function (event) {
   event.preventDefault();
 
+  const getVehicleId = $("#vehicleNumber").val();
   const startDate = $("#startDateInput").val();
   const endDate = $("#endDateInput").val();
   const startTime = $(".start-time-crp").val();
@@ -66,6 +67,7 @@ $('form[name="booking-form-style1"]').submit(function (event) {
     vehiclePrice: vehiclePrice,
     totalCharges: totalCharges,
     currency: currencySymbol,
+    vehicleId: Number(getVehicleId),
   };
 
   storeDataInLocalStorage(vehicleDetail);

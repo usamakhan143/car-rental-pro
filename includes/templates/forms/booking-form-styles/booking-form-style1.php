@@ -5,6 +5,7 @@
                 <span class="price-per-day">NaN</span> <small><span class="actual-price">$NaN</span></small>
             </h3>
             <form name="booking-form-style1">
+                <input type="hidden" name="carNumber" id="vehicleNumber" readonly>
                 <div class="row gx-0">
                     <div class="col">
                         <input

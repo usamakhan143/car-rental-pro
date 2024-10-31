@@ -103,7 +103,8 @@ function showBookingForm()
         'currency'         => get_woocommerce_currency(), // Example of dynamic data
         'currencySymbol'   => $currency_symbol,
         'userLoggedIn'     => is_user_logged_in(),
-        'dates_na'         => $dates_NA
+        'dates_na'         => $dates_NA,
+        'vehcileId'        => get_the_ID()
         // Add more dynamic data as needed
     );
 

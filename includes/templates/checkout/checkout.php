@@ -81,7 +81,7 @@
                                                    name="btnradio"
                                                    id="pickupRadio"
                                                    autocomplete="off"
-                                                   value="pickup"
+                                                   value="Pickup"
                                                    checked />
                                                <label class="btn btn-outline-primary" for="pickupRadio">Pickup</label>
 
@@ -90,7 +90,7 @@
                                                    class="btn-check"
                                                    name="btnradio"
                                                    id="deliveryRadio"
-                                                   value="delivery"
+                                                   value="Delivery"
                                                    autocomplete="off" />
                                                <label
                                                    class="btn btn-outline-primary"
@@ -176,7 +176,7 @@
                                <div class="form-group col-md-6">
                                    <label>Select age</label>
                                    <select class="form-control" id="selectAge">
-                                       <option>Select age</option>
+                                       <option value="">Select age</option>
                                        <option value="18-25">18-25</option>
                                        <option value="26-35">26-35</option>
                                        <option value="36-50">36-50</option>

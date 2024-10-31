@@ -6,7 +6,7 @@ if (isVehicleDetailAvailable()) {
     console.log(vehicleDetails, "Jani");
 
     $('input[name="btnradio"]').change(function () {
-      if ($(this).val() === "delivery") {
+      if ($(this).val() === "Delivery") {
         $("#delivery-address-container").show();
       } else {
         $("#delivery-address-container").hide();
@@ -89,23 +89,67 @@ if (isVehicleDetailAvailable()) {
         const expiry = document.getElementById("expiry").value;
         const cvv = document.getElementById("cvv").value;
 
+        const bookingData = {
+          payment_method: "bacs",
+          payment_method_title: "Card Payment",
+          set_paid: true,
+          billing: {
+            first_name: firstName,
+            email: emailAddress,
+            phone: phoneNumber,
+          },
+          line_items: [
+            {
+              product_id: vehicleDetails.vehicleId,
+            },
+          ],
+          meta_data: [
+            { key: "pickup_or_delivery", value: pickup },
+            { key: "delivery_address", value: deliveryAddress || "NA" },
+            { key: "return_address", value: returnAddress || "NA" },
+            { key: "age_bracket", value: selectAge || "NA" },
+            { key: "start_date", value: startDate },
+            { key: "end_date", value: endDate },
+            { key: "start_time", value: vehicleDetails.startTime },
+            { key: "end_time", value: vehicleDetails.endTime },
+            { key: "days_booked", value: vehicleDetails.pricePerDayText },
+            {
+              key: "tax_fees",
+              value: vehicleDetails.currency + vehicleDetails.taxAndFees,
+            },
+            {
+              key: "discount",
+              value: vehicleDetails.currency + vehicleDetails.discount,
+            },
+            { key: "discount_type", value: vehicleDetails.discountType },
+            {
+              key: "subtotal",
+              value: vehicleDetails.currency + vehicleDetails.vehiclePrice,
+            },
+            {
+              key: "total",
+              value: vehicleDetails.currency + vehicleDetails.totalCharges,
+            },
+          ],
+        };
+
         // Log all values to the console
-        console.log("Start Date:", startDate);
-        console.log("End Date:", endDate);
-        console.log("Pickup/Delivery:", pickup);
-        console.log("Oneway:", getOnewayCheckboxState());
-        console.log("selectAge:", selectAge);
-        console.log("Customer Name:", firstName, lastName);
-        console.log("Email:", emailAddress);
-        console.log("Phone:", phoneNumber);
-        console.log("return address:", returnAddress);
-        console.log("delivery address:", deliveryAddress);
+        // console.log("Start Date:", startDate);
+        // console.log("End Date:", endDate);
+        // console.log("Pickup/Delivery:", pickup);
+        // console.log("Oneway:", getOnewayCheckboxState());
+        // console.log("selectAge:", selectAge);
+        // console.log("Customer Name:", firstName, lastName);
+        // console.log("Email:", emailAddress);
+        // console.log("Phone:", phoneNumber);
+        // console.log("return address:", returnAddress);
+        // console.log("delivery address:", deliveryAddress);
 
         // console.log("Name on Card:", cardName);
-        console.log("Card Number:", cardNumber);
-        console.log("Expiry Date:", expiry);
-        console.log("CVV:", cvv);
-
+        // console.log("Card Number:", cardNumber);
+        // console.log("Expiry Date:", expiry);
+        // console.log("CVV:", cvv);
+        console.log(bookingData, "Booking Data");
         document.getElementById("step2Form").style.display = "none";
         document.getElementById("step2").classList.remove("active");
         document.getElementById("step3").classList.add("active");
@@ -191,4 +235,23 @@ function showFailedStep() {
     step3Form.style.opacity = opacity;
     opacity += 0.1;
   }, 50);
+}
+
+function createBooking(data) {
+  $.ajax({
+    url: "https://ypautorental.com/wp-json/wc/v3/orders",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    headers: {
+      Authorization:
+        "Basic Y2tfZTE5MGQ1YTQ2MWM0Mjg3NDQ1ZWIxMzRjNWFlMDgyZjc4MTIwZjNhNzpjc19kMDNhZGRkZTA5NDkzNWJmNDdkMzc5MmVhMDJhYjUwZDcwYzUxOTRh",
+    },
+    success: function (response) {
+      console.log("Order created successfully:", response);
+    },
+    error: function (xhr, status, error) {
+      console.error("Error creating order:", error);
+    },
+  });
 }

@@ -33,9 +33,9 @@ function clearLocalStorageObject(key) {
   // Check if the key exists in localStorage
   if (localStorage.getItem(key)) {
     localStorage.removeItem(key); // Remove the specific item
-    console.log(`Item with key '${key}' has been removed from localStorage.`);
+    console.log(`Item with key '${key}' has been removed.`);
   } else {
-    console.log(`No item found in localStorage with the key '${key}'.`);
+    console.log(`No item found in storage.`);
   }
 }
 

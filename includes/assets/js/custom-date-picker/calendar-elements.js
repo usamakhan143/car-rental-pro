@@ -29,6 +29,9 @@ const monthlyDiscount = CarRentalProData.monthlyDiscount;
 const salePrice = CarRentalProData.salePrice;
 const wooCurrency = CarRentalProData.currency;
 const wooCurrencySymbol = CarRentalProData.currencySymbol;
+const vehicleId = CarRentalProData.vehcileId;
+// Product ID
+$("#vehicleNumber").val(vehicleId);
 let priceTobeCalculated;
 // Example: Update the HTML with the pricePerDay and salePrice
 if (salePrice !== "") {
