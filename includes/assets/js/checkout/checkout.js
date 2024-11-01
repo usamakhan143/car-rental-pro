@@ -13,6 +13,14 @@ if (isVehicleDetailAvailable()) {
       }
     });
 
+    $("#retryButton").click(() => {
+      location.reload();
+    });
+
+    $(".go-back").click(() => {
+      window.location.href = location.origin;
+    });
+
     // Handle checkbox change
     $("#oneWay").change(function () {
       if ($(this).is(":checked")) {
@@ -150,12 +158,10 @@ if (isVehicleDetailAvailable()) {
         // console.log("Expiry Date:", expiry);
         // console.log("CVV:", cvv);
         console.log(bookingData, "Booking Data");
+        createBooking(bookingData);
         document.getElementById("step2Form").style.display = "none";
         document.getElementById("step2").classList.remove("active");
         document.getElementById("step3").classList.add("active");
-        // Call this function when the payment is successful
-        showSuccessStep();
-        showFailedStep();
         // Here you can add your payment processing logic or Stripe integration
       });
 
@@ -238,20 +244,24 @@ function showFailedStep() {
 }
 
 function createBooking(data) {
+  const consumerKey = phpData.consumerKey;
+  const consumerSecret = phpData.consumerSecret;
+  const authHeader = btoa(`${consumerKey}:${consumerSecret}`);
   $.ajax({
-    url: "https://ypautorental.com/wp-json/wc/v3/orders",
+    url:
+      location.origin +
+      `/wp-json/wc/v3/orders?consumer_key=${consumerKey}&consumer_secret=${consumerSecret}`,
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify(data),
-    headers: {
-      Authorization:
-        "Basic Y2tfZTE5MGQ1YTQ2MWM0Mjg3NDQ1ZWIxMzRjNWFlMDgyZjc4MTIwZjNhNzpjc19kMDNhZGRkZTA5NDkzNWJmNDdkMzc5MmVhMDJhYjUwZDcwYzUxOTRh",
-    },
     success: function (response) {
-      console.log("Order created successfully:", response);
+      console.log("Booking created successfully:", response);
+      // Call this function when the payment is successful
+      showSuccessStep();
     },
     error: function (xhr, status, error) {
-      console.error("Error creating order:", error);
+      console.error("Error creating booking:", error);
+      showFailedStep();
     },
   });
 }

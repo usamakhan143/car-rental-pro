@@ -223,6 +223,11 @@ function checkoutPageCssJs()
     if (is_page()) {
         // Get the current page slug
         $slug = get_post_field('post_name', get_queried_object_id());
+        // Define the PHP variables you want to pass
+        $php_data = array(
+            'consumerKey'   => get_plugin_options_crp('woo_consumer_key'),
+            'consumerSecret'      => get_plugin_options_crp('woo_consumer_secret'),
+        );
 
         // Check if the slug matches 'abc'
         if ($slug == 'vehicle-booking') {
@@ -263,6 +268,9 @@ function checkoutPageCssJs()
                 '1.0.0',
                 true
             );
+
+            // Pass PHP variables to JavaScript
+            wp_localize_script('car-rental-pro-checkout-page-script', 'phpData', $php_data);
         }
     }
 }

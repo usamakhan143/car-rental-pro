@@ -55,9 +55,14 @@ function create_options_page_crp()
                     )
                 ))
                 ->set_attribute('placeholder', 'Enter value in percentage.')
-                ->set_attribute('type', 'number') // Set the input type to number
+                ->set_attribute('type', 'number'), // Set the input type to number
 
-
+            Field::make('html', 'woocommerce_integration_heading')
+                ->set_html('<h1>Woocommerce Integration</h1>'),
+            Field::make('text', 'woo_consumer_key', 'Consumer Key')->set_width(50)->set_required(true)
+                ->set_attribute('placeholder', 'Enter key here.'),
+            Field::make('text', 'woo_consumer_secret', 'Consumer Secret')->set_width(50)->set_required(true)
+                ->set_attribute('placeholder', 'Enter key here.')->set_attribute('type', 'password'),
         ));
 }
 

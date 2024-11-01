@@ -143,6 +143,7 @@
                                        type="text"
                                        class="form-control"
                                        id="firstName"
+                                       required
                                        placeholder="First name" />
                                </div>
                                <div class="form-group col-md-6">
@@ -161,6 +162,7 @@
                                        type="email"
                                        class="form-control"
                                        placeholder="Email"
+                                       required
                                        id="emailAddress" />
                                </div>
                            </div>
@@ -171,6 +173,7 @@
                                        type="text"
                                        class="form-control"
                                        placeholder="Phone number"
+                                       required
                                        id="phoneNum" />
                                </div>
                                <div class="form-group col-md-6">
@@ -256,7 +259,7 @@
 
                                    <!-- Return to Home Button -->
                                    <div class="mt-4">
-                                       <a href="#" class="btn btn-success btn-lg">
+                                       <a href="" class="btn btn-success btn-lg go-back">
                                            <i class="fa fa-home mr-2"></i> Return to Home
                                        </a>
                                    </div>
@@ -288,13 +291,13 @@
                                    <!-- Retry Payment Button -->
                                    <div class="mt-4">
                                        <button id="retryButton" class="btn btn-danger btn-lg">
-                                           <i class="fa fa-redo mr-2"></i> Retry Payment
+                                           <i class="fa fa-redo mr-2"></i> Retry
                                        </button>
                                    </div>
 
                                    <!-- Return to Home Button -->
                                    <div class="mt-3">
-                                       <a href="/" class="btn btn-secondary btn-lg">
+                                       <a href="" class="btn btn-secondary btn-lg go-back">
                                            <i class="fa fa-home mr-2"></i> Return to Home
                                        </a>
                                    </div>
