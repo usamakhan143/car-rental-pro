@@ -8,6 +8,8 @@ add_action('wp_enqueue_scripts', 'carRentalProBeforeBodyClosingScripts');
 add_action('wp_enqueue_scripts', 'checkoutPageCssJs');
 
 add_action('wp_enqueue_scripts', 'enqueue_carRentalPro_styles', 20);
+add_action('init', 'bookingOrderInquiry');
+
 
 function showBookingForm()
 {
@@ -273,4 +275,10 @@ function checkoutPageCssJs()
             wp_localize_script('car-rental-pro-checkout-page-script', 'phpData', $php_data);
         }
     }
+}
+
+
+function bookingOrderInquiry()
+{
+    include CARRENTAL_PLUGIN_PATH . '/includes/back-office/booking-inquiry.php';
 }

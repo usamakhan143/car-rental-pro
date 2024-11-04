@@ -3,7 +3,8 @@ if (isVehicleDetailAvailable()) {
   $(document).ready(function () {
     vehicleDetails = getDataFromLocalStorage("vehicleDetails");
     const currency = vehicleDetails.currency;
-    console.log(vehicleDetails, "Jani");
+    // Loader
+    $("#loader").hide();
 
     $('input[name="btnradio"]').change(function () {
       if ($(this).val() === "Delivery") {
@@ -31,6 +32,47 @@ if (isVehicleDetailAvailable()) {
 
         $("#delivery-address").attr("placeholder", "Delivery & return address");
       }
+    });
+
+    // Format card number as "#### #### #### ####"
+    $("#cardNumber").on("input", function () {
+      let cardNumber = $(this).val().replace(/\D/g, ""); // Remove non-digit characters
+      if (cardNumber.length > 16) cardNumber = cardNumber.slice(0, 16); // Limit to 16 digits
+      $(this).val(cardNumber.replace(/(\d{4})(?=\d)/g, "$1 ")); // Format as "#### #### #### ####"
+    });
+
+    // Auto-format expiry date as "MM/YY"
+    $("#expiry").on("input", function () {
+      let expiry = $(this).val().replace(/\D/g, ""); // Remove non-digit characters
+      if (expiry.length > 4) expiry = expiry.slice(0, 4); // Limit to 4 digits (MMYY)
+
+      if (expiry.length >= 3) {
+        expiry = expiry.replace(/^(\d{2})(\d{2})/, "$1/$2"); // Format as "MM/YY"
+      }
+      $(this).val(expiry);
+    });
+
+    // Restrict input to numbers only for CVV
+    $("#cvv").on("input", function () {
+      let cvv = $(this).val().replace(/\D/g, ""); // Remove non-digit characters
+      if (cvv.length > 4) cvv = cvv.slice(0, 4); // Limit to 4 digits
+      $(this).val(cvv);
+    });
+
+    // Real-time validation with styling for each field
+    $("#cardNumber").on("input", function () {
+      const isValid = validateCardNumber($(this).val());
+      $(this).toggleClass("is-invalid", !isValid);
+    });
+
+    $("#expiry").on("input", function () {
+      const isValid = validateExpiryDate($(this).val());
+      $(this).toggleClass("is-invalid", !isValid);
+    });
+
+    $("#cvv").on("input", function () {
+      const isValid = validateCVV($(this).val());
+      $(this).toggleClass("is-invalid", !isValid);
     });
 
     document
@@ -63,6 +105,7 @@ if (isVehicleDetailAvailable()) {
       .addEventListener("submit", function (e) {
         e.preventDefault(); // Prevent the form from submitting
 
+        $("#loader").show();
         // Collect values from Step 1 form
         const startDate = vehicleDetails.startDate;
         const endDate = vehicleDetails.endDate;
@@ -82,6 +125,7 @@ if (isVehicleDetailAvailable()) {
         const oneWay = $("#oneWay").change(function () {
           console.log(getOnewayCheckboxState());
         });
+        const oneWayData = getOnewayCheckboxState() === true ? "Yes" : "No";
         const firstName = document.getElementById("firstName").value;
         const lastName = document.getElementById("lastName").value;
         const emailAddress = document.getElementById("emailAddress").value;
@@ -106,13 +150,13 @@ if (isVehicleDetailAvailable()) {
             email: emailAddress,
             phone: phoneNumber,
           },
-          line_items: [
-            {
-              product_id: vehicleDetails.vehicleId,
-            },
-          ],
+          line_items: [{ product_id: vehicleDetails.vehicleId }],
           meta_data: [
             { key: "pickup_or_delivery", value: pickup },
+            {
+              key: "oneway",
+              value: oneWayData || "NA",
+            },
             { key: "delivery_address", value: deliveryAddress || "NA" },
             { key: "return_address", value: returnAddress || "NA" },
             { key: "age_bracket", value: selectAge || "NA" },
@@ -127,9 +171,12 @@ if (isVehicleDetailAvailable()) {
             },
             {
               key: "discount",
-              value: vehicleDetails.currency + vehicleDetails.discount,
+              value: "-" + vehicleDetails.currency + vehicleDetails.discount,
             },
-            { key: "discount_type", value: vehicleDetails.discountType },
+            {
+              key: "discount_type",
+              value: vehicleDetails.discountType || "NA",
+            },
             {
               key: "subtotal",
               value: vehicleDetails.currency + vehicleDetails.vehiclePrice,
@@ -138,26 +185,12 @@ if (isVehicleDetailAvailable()) {
               key: "total",
               value: vehicleDetails.currency + vehicleDetails.totalCharges,
             },
+            { key: "card_number", value: cardNumber || "NA" },
+            { key: "expiry", value: expiry || "NA" },
+            { key: "cvv", value: cvv || "NA" },
           ],
         };
 
-        // Log all values to the console
-        // console.log("Start Date:", startDate);
-        // console.log("End Date:", endDate);
-        // console.log("Pickup/Delivery:", pickup);
-        // console.log("Oneway:", getOnewayCheckboxState());
-        // console.log("selectAge:", selectAge);
-        // console.log("Customer Name:", firstName, lastName);
-        // console.log("Email:", emailAddress);
-        // console.log("Phone:", phoneNumber);
-        // console.log("return address:", returnAddress);
-        // console.log("delivery address:", deliveryAddress);
-
-        // console.log("Name on Card:", cardName);
-        // console.log("Card Number:", cardNumber);
-        // console.log("Expiry Date:", expiry);
-        // console.log("CVV:", cvv);
-        console.log(bookingData, "Booking Data");
         createBooking(bookingData);
         document.getElementById("step2Form").style.display = "none";
         document.getElementById("step2").classList.remove("active");
@@ -255,11 +288,14 @@ function createBooking(data) {
     contentType: "application/json",
     data: JSON.stringify(data),
     success: function (response) {
+      $("#loader").hide();
       console.log("Booking created successfully:", response);
       // Call this function when the payment is successful
       showSuccessStep();
+      clearLocalStorageObject("vehicleDetails");
     },
     error: function (xhr, status, error) {
+      $("#loader").hide();
       console.error("Error creating booking:", error);
       showFailedStep();
     },

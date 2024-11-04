@@ -28,6 +28,10 @@
            <div class="row">
                <div class="col-md-8">
                    <div class="checkout-card">
+                       <!-- Loader HTML -->
+                       <div id="loader">
+                           <div class="spinner"></div>
+                       </div>
                        <form id="step1Form" class="step-content">
                            <!-- <h5>When & Where</h5> -->
                            <!-- <div class="row">
@@ -210,7 +214,8 @@
                                    type="text"
                                    id="cardNumber"
                                    class="form-control"
-                                   placeholder="Card Number" />
+                                   placeholder="Card Number"
+                                   required />
                            </div>
                            <div class="form-group">
                                <label for="expiry">Expiry Date</label>
@@ -218,7 +223,8 @@
                                    type="text"
                                    id="expiry"
                                    class="form-control"
-                                   placeholder="MM/YY" />
+                                   placeholder="MM/YY"
+                                   required />
                            </div>
                            <div class="form-group">
                                <label for="cvv">CVV</label>
@@ -226,7 +232,8 @@
                                    type="text"
                                    id="cvv"
                                    class="form-control"
-                                   placeholder="CVV" />
+                                   placeholder="CVV"
+                                   required />
                            </div>
 
                            <button type="button" class="btn btn-primary prev-btn" id="prevButton">
@@ -259,7 +266,7 @@
 
                                    <!-- Return to Home Button -->
                                    <div class="mt-4">
-                                       <a href="" class="btn btn-success btn-lg go-back">
+                                       <a href="#" class="btn btn-success btn-lg go-back">
                                            <i class="fa fa-home mr-2"></i> Return to Home
                                        </a>
                                    </div>
@@ -297,7 +304,7 @@
 
                                    <!-- Return to Home Button -->
                                    <div class="mt-3">
-                                       <a href="" class="btn btn-secondary btn-lg go-back">
+                                       <a href="#" class="btn btn-secondary btn-lg go-back">
                                            <i class="fa fa-home mr-2"></i> Return to Home
                                        </a>
                                    </div>

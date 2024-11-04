@@ -66,3 +66,32 @@ function isVehicleDetailAvailable() {
 function getOnewayCheckboxState() {
   return $("#oneWay").is(":checked"); // Returns true if checked, false if unchecked
 }
+
+// Validate card number (Visa, MasterCard, American Express, etc.)
+function validateCardNumber(cardNumber) {
+  // Regular expression for validating common card types
+  const regex =
+    /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})$/;
+  return regex.test(cardNumber.replace(/\s+/g, "")); // Remove spaces for validation
+}
+
+// Validate expiry date (MM/YY)
+function validateExpiryDate(expiry) {
+  const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
+  if (!regex.test(expiry)) return false;
+
+  const today = new Date();
+  const [month, year] = expiry.split("/").map((num) => parseInt(num, 10));
+  const fullYear = 2000 + year;
+
+  return (
+    fullYear > today.getFullYear() ||
+    (fullYear === today.getFullYear() && month >= today.getMonth() + 1)
+  );
+}
+
+// Validate CVV (3 or 4 digits)
+function validateCVV(cvv) {
+  const regex = /^[0-9]{3,4}$/;
+  return regex.test(cvv);
+}
