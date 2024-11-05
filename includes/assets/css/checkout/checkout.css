@@ -231,3 +231,17 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.checkout-addons{
+  font-size: 13px;
+}
+
+.extras-heading{
+  margin: 0px;
+}
+
+#extras{
+  border:1px solid rgb(194, 194, 194);
+  border-radius: 6px;
+  padding: 7px;
+}

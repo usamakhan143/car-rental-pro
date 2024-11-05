@@ -13,8 +13,7 @@ function add_booking_details_metabox()
             'booking_details_metabox', // ID of the metabox
             'Booking Details', // Title of the metabox
             'display_api_order_meta_data', // Callback function to display the content
-            $posttype,
-            'side'
+            $posttype
         );
     }
 }
@@ -42,6 +41,7 @@ function display_api_order_meta_data($post)
         'start_time',
         'end_time',
         'days_booked',
+        'extras',
         'tax_fees',
         'discount',
         'discount_type',

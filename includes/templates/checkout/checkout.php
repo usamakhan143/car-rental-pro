@@ -319,16 +319,14 @@
                    <div class="checkout-card summary-details">
                        <h5 class="vehicle-name">Corvette C8 Convertible 2023</h5>
                        <img
-                           src="https://d2j40m88aovabi.cloudfront.net/storage/app/public/high_resolution_image/d7b68310d7680c7a3797c7a9c3664c12.jpeg"
+                           src="https://placehold.co/600x400"
                            alt="Car image"
                            class="vehicle-image" />
                        <p>
                            <i class="fas fa-calendar-alt"></i> <span class="checkin-checkout-dates">Oct 22, 2024 - Oct 26, 2024</span>
                        </p>
-                       <p>
-                           <i class="fas fa-map-marker-alt"></i> 499 N Canon Dr, Beverly
-                           Hills, CA 90210
-                       </p>
+                       <div id="extras">
+                       </div>
                        <p class="per-day-price-with-num-of-days">$450 x 4d: <span class="float-right">$1,800</span></p>
                        <p class="discount-type">Weekly Discount: <span class="float-right discount-value">-$1,800</span></p>
                        <p class="tax-container">Taxes & Fees: <span class="float-right taxes-fees-included">$162</span></p>

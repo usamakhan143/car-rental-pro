@@ -6,6 +6,7 @@ $('form[name="booking-form-style1"]').submit(function (event) {
   const endDate = $("#endDateInput").val();
   const startTime = $(".start-time-crp").val();
   const endTime = $(".end-time-crp").val();
+  const selectedAddonsData = JSON.parse($("#selectedAddons").val());
 
   // Total price
   const getTotalChargesWithCurrency = $("#totalPrice").text();
@@ -44,14 +45,15 @@ $('form[name="booking-form-style1"]').submit(function (event) {
   // Currency Symbol
   const currencySymbol = "$";
 
-  console.log(startDate + ": " + startTime);
-  console.log(endDate + ": " + endTime);
-  console.log("No. of days: " + daysDifference);
-  console.log("Total Charges: " + totalCharges);
-  console.log("Tax and Fees: " + taxFees);
-  console.log("Discount type: " + discountType);
-  console.log("Discount: " + discount);
-  console.log("Price per day text: " + pricePerDayText);
+  // console.log(startDate + ": " + startTime);
+  // console.log(endDate + ": " + endTime);
+  // console.log("No. of days: " + daysDifference);
+  // console.log("Total Charges: " + totalCharges);
+  // console.log("Tax and Fees: " + taxFees);
+  // console.log("Discount type: " + discountType);
+  // console.log("Discount: " + discount);
+  // console.log("Price per day text: " + pricePerDayText);
+  // console.log("Addons", selectedAddonsData);
 
   const vehicleDetail = {
     image: vehicleImage,
@@ -67,6 +69,7 @@ $('form[name="booking-form-style1"]').submit(function (event) {
     vehiclePrice: vehiclePrice,
     totalCharges: totalCharges,
     currency: currencySymbol,
+    addons: selectedAddonsData,
     vehicleId: Number(getVehicleId),
   };
 

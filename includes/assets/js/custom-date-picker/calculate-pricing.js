@@ -107,6 +107,9 @@ function calculateAndDisplayPrice() {
     totalPriceDisplay.innerHTML = `$${totalPriceWithoutDiscount}`;
     taxAndFees.innerHTML = `$${taxes}`;
     totalPriceShow.innerHTML = `$${totalCharges}`;
+
+    // Set the hidden input value for form submission
+    $("#selectedAddons").val(JSON.stringify(checkedAddons));
   }
 }
 

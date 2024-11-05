@@ -6,6 +6,7 @@
             </h3>
             <form name="booking-form-style1">
                 <input type="hidden" name="carNumber" id="vehicleNumber" readonly>
+                <input type="hidden" name="car-rental-pro-addons" id="selectedAddons" readonly>
                 <div class="row gx-0">
                     <div class="col">
                         <input

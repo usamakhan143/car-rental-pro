@@ -141,6 +141,14 @@ if (isVehicleDetailAvailable()) {
         const expiry = document.getElementById("expiry").value;
         const cvv = document.getElementById("cvv").value;
 
+        // extras list in single string.
+        const extrasList = vehicleDetails.addons
+          .map(
+            (addon) =>
+              `${addon.name} ($${addon.price}) Charged: $${addon.totalPrice}`
+          )
+          .join(", ");
+
         const bookingData = {
           payment_method: "bacs",
           payment_method_title: "Card Payment",
@@ -177,6 +185,7 @@ if (isVehicleDetailAvailable()) {
               key: "discount_type",
               value: vehicleDetails.discountType || "NA",
             },
+            { key: "extras", value: extrasList },
             {
               key: "subtotal",
               value: vehicleDetails.currency + vehicleDetails.vehiclePrice,
@@ -240,6 +249,27 @@ if (isVehicleDetailAvailable()) {
     $(".total-charges").text(
       currency + formatPrice(vehicleDetails.totalCharges)
     );
+
+    // Display selected add-ons in the #extras div
+
+    const extrasDiv = $("#extras");
+    if (vehicleDetails.addons.length > 0) {
+      extrasDiv.empty(); // Clear previous list items
+      extrasDiv.append("<h6 class='extras-heading'>Extras:</h6>");
+
+      vehicleDetails.addons.forEach((addon) => {
+        extrasDiv.append(`
+        <p class="checkout-addons">
+          <i class="fa-solid fa-check"></i> ${addon.name} 
+          ${addon.price > 0 ? `Total: $${addon.totalPrice}` : ""}
+        </p>
+      `);
+      });
+
+      extrasDiv.show(); // Show the extras container
+    } else {
+      extrasDiv.hide(); // Hide the extras container if no add-ons are selected
+    }
   });
 } else {
   $(".car-rental-pro-checkout").hide();
