@@ -143,10 +143,7 @@ if (isVehicleDetailAvailable()) {
 
         // extras list in single string.
         const extrasList = vehicleDetails.addons
-          .map(
-            (addon) =>
-              `${addon.name} ($${addon.price}) Charged: $${addon.totalPrice}`
-          )
+          .map((addon) => `${addon.name} Charged: $${addon.totalPrice}`)
           .join(", ");
 
         const bookingData = {
