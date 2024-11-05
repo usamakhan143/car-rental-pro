@@ -70,6 +70,7 @@
                 </div>
                 <br />
                 <div class="display-pricing">
+                    <div id="addonsContainer"></div><br />
                     <div class="row gx-0">
                         <div class="col days-price" id="pricePerDayDisplay"></div>
                         <div class="col car-price" id="totalPricePerDayDisplay"></div>

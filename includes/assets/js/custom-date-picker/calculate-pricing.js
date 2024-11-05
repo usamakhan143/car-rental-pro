@@ -1,3 +1,48 @@
+function createAddons() {
+  const $addonsContainer = $("#addonsContainer");
+
+  // Generate checkboxes for each addon
+  addons.forEach((addon) => {
+    // If price is 0, omit it from the label
+    const priceText =
+      addon.price > 0
+        ? ` ($${addon.price}${addon.per === "day" ? " per day" : ""})`
+        : "";
+
+    const addonHtml = `
+    <div class="form-check">
+        <input type="checkbox" class="addon-checkbox form-check-input" id="${
+          addon.id
+        }" data-price="${addon.price}" ${
+      addon.per ? `data-per="${addon.per}"` : ""
+    }>
+      <label class="form-check-label" for="${addon.id}">
+        ${addon.name} ${priceText}
+      </label><br>
+    </div>`;
+    $addonsContainer.append(addonHtml);
+  });
+
+  // Attach event listener for checkbox changes
+  $(".addon-checkbox").change(calculateAndDisplayPrice);
+}
+
+function calculateAddonsTotal() {
+  let totalAddonsCost = 0;
+  const timeDiff = Math.abs(endDate - startDate);
+  const numOfDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1; // Number of days
+
+  // Loop through each checked addon
+  $(".addon-checkbox:checked").each(function () {
+    let addonPrice = parseFloat($(this).data("price"));
+    if ($(this).data("per") === "day") {
+      addonPrice *= numOfDays;
+    }
+    totalAddonsCost += addonPrice;
+  });
+  return totalAddonsCost;
+}
+
 // Function to calculate and display the price with discounts
 function calculateAndDisplayPrice() {
   if (startDate && endDate) {
@@ -19,6 +64,28 @@ function calculateAndDisplayPrice() {
       discountSec.style.display = "none";
     }
 
+    // Addons Price Calculation Start
+    let totalAddonsCost = 0;
+    let checkedAddons = []; // Array to store selected addons
+
+    // Loop through each checked addon
+    $(".addon-checkbox:checked").each(function () {
+      let addonPrice = parseFloat($(this).data("price"));
+      if ($(this).data("per") === "day") {
+        addonPrice *= numOfDays;
+      }
+      totalAddonsCost += addonPrice;
+
+      // Push the selected addon details into checkedAddons array
+      checkedAddons.push({
+        id: $(this).attr("id"),
+        name: $(this).parent().text().trim(),
+        price: parseFloat($(this).data("price")),
+        totalPrice: addonPrice,
+      });
+    });
+    // Addons Price Calculation End
+
     // Calculate final price after applying discount
     const totalPrice = totalPriceWithoutDiscount - discountValue;
 
@@ -30,7 +97,7 @@ function calculateAndDisplayPrice() {
       taxes = 0;
       taxSec.style.display = "none";
     }
-    const totalCharges = Math.round(totalPrice + taxes);
+    const totalCharges = Math.round(totalPrice + taxes + totalAddonsCost);
 
     document.querySelector(".display-pricing").style.display = "block";
 
@@ -54,3 +121,4 @@ function resetPriceDisplay() {
 
 // Initial calendar render
 renderCalendar(currentDate);
+createAddons();

@@ -186,3 +186,18 @@ function highlightRange(start, hoverDate) {
     }
   });
 }
+
+const addons = [
+  {
+    id: "collisionWaiver",
+    name: "Additional Collision Damage Waiver",
+    price: 15,
+    per: "day",
+  },
+  { id: "extraDriver", name: "Extra Driver", price: 10 },
+  { id: "cheddiPickup", name: "Cheddi Jagan Airport Pickup", price: 60 },
+  { id: "cheddiDropoff", name: "Cheddi Jagan Airport Drop Off", price: 60 },
+  { id: "oglePickup", name: "Ogle Airport Pickup", price: 25 },
+  { id: "ogleDropoff", name: "Ogle Airport Drop Off", price: 25 },
+  { id: "officePickupDropoff", name: "Pickup/Drop off at Office", price: 0 },
+];
