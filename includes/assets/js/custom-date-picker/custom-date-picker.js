@@ -201,3 +201,6 @@ const addons = [
   { id: "ogleDropoff", name: "Ogle Airport Drop Off", price: 25 },
   { id: "officePickupDropoff", name: "Pickup/Drop off at Office", price: 0 },
 ];
+
+// Call the function with your specific product ID
+fetchAndDisableDatesForProduct(vehicleId); // Replace 123 with your actual product ID

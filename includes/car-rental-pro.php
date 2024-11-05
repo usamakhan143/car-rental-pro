@@ -106,7 +106,9 @@ function showBookingForm()
         'currencySymbol'   => $currency_symbol,
         'userLoggedIn'     => is_user_logged_in(),
         'dates_na'         => $dates_NA,
-        'vehcileId'        => get_the_ID()
+        'vehcileId'        => get_the_ID(),
+        'consumerKey'   => get_plugin_options_crp('woo_consumer_key'),
+        'consumerSecret'      => get_plugin_options_crp('woo_consumer_secret'),
         // Add more dynamic data as needed
     );
 
@@ -115,6 +117,14 @@ function showBookingForm()
         'car-rental-pro-calendar-elements', // The script handle you're attaching the data to
         'CarRentalProData',                // The name of the JavaScript object
         $pricing_data                      // The data to pass
+    );
+
+    wp_enqueue_script(
+        'car-rental-pro-disable-dates',
+        CARRENTAL_PLUGIN_URL . 'includes/assets/js/custom-date-picker/disable-dates.js',
+        array('car-rental-pro-calendar-elements'),
+        '1.0.0',
+        true
     );
 
     wp_enqueue_script(

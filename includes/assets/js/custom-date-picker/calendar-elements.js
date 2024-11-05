@@ -30,6 +30,8 @@ const salePrice = CarRentalProData.salePrice;
 const wooCurrency = CarRentalProData.currency;
 const wooCurrencySymbol = CarRentalProData.currencySymbol;
 const vehicleId = CarRentalProData.vehcileId;
+const wooconsumerKey = CarRentalProData.consumerKey;
+const wooconsumerSecret = CarRentalProData.consumerSecret;
 // Product ID
 $("#vehicleNumber").val(vehicleId);
 let priceTobeCalculated;
