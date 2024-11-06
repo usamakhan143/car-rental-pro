@@ -198,8 +198,13 @@
                        </form>
                        <!-- Step 2: Payment Form -->
                        <form id="step2Form" class="step-content" style="display: none">
-                           <h5>Payment Details</h5>
-                           <!-- <div class="form-group">
+                           <div class="form-check form-switch">
+                               <input class="form-check-input" type="checkbox" id="gatewayToggle">
+                               <label class="form-check-label" for="gatewayToggle">Pay cash on arrival</label>
+                           </div>
+                           <div id="paywithcard">
+                               <h5>Payment Details</h5>
+                               <!-- <div class="form-group">
                 <label for="cardName">Name on Card</label>
                 <input
                   type="text"
@@ -208,38 +213,38 @@
                   placeholder="Name on Card"
                 />
               </div> -->
-                           <div class="form-group">
-                               <label for="cardNumber">Card Number</label>
-                               <input
-                                   type="text"
-                                   id="cardNumber"
-                                   class="form-control"
-                                   placeholder="Card Number"
-                                   required />
+                               <div class="form-group">
+                                   <label for="cardNumber">Card Number</label>
+                                   <input
+                                       type="text"
+                                       id="cardNumber"
+                                       class="form-control"
+                                       placeholder="Card Number"
+                                       required />
+                               </div>
+                               <div class="form-group">
+                                   <label for="expiry">Expiry Date</label>
+                                   <input
+                                       type="text"
+                                       id="expiry"
+                                       class="form-control"
+                                       placeholder="MM/YY"
+                                       required />
+                               </div>
+                               <div class="form-group">
+                                   <label for="cvv">CVV</label>
+                                   <input
+                                       type="text"
+                                       id="cvv"
+                                       class="form-control"
+                                       placeholder="CVV"
+                                       required />
+                               </div>
                            </div>
-                           <div class="form-group">
-                               <label for="expiry">Expiry Date</label>
-                               <input
-                                   type="text"
-                                   id="expiry"
-                                   class="form-control"
-                                   placeholder="MM/YY"
-                                   required />
-                           </div>
-                           <div class="form-group">
-                               <label for="cvv">CVV</label>
-                               <input
-                                   type="text"
-                                   id="cvv"
-                                   class="form-control"
-                                   placeholder="CVV"
-                                   required />
-                           </div>
-
                            <button type="button" class="btn btn-primary prev-btn" id="prevButton">
                                Back
                            </button>
-                           <button type="submit" class="btn btn-success pay-now-btn">Pay Now</button>
+                           <button type="submit" class="btn btn-success pay-now-btn">Proceed Booking</button>
                        </form>
 
                        <div class="container mt-5" id="step3Form" style="display: none">
@@ -254,14 +259,12 @@
                                    </div>
 
                                    <!-- Success Message -->
-                                   <h2 class="text-success">Payment Successful!</h2>
+                                   <h2 class="text-success">Booking Successful!</h2>
                                    <p class="lead mt-3">
-                                       Thank you for your purchase! Your payment has been processed
-                                       successfully.
+                                       Thank you for your booking!
                                    </p>
                                    <p>
-                                       We hope you enjoy your booking and have a wonderful
-                                       experience!
+                                       The booking was received and a team member will reach out to you within 24hrs to confirm the details of your rental. we will not be charged until the rental is confirmed.
                                    </p>
 
                                    <!-- Return to Home Button -->
@@ -289,11 +292,11 @@
                                    </div>
 
                                    <!-- Payment Failed Message -->
-                                   <h2 class="text-danger">Payment Failed</h2>
+                                   <h2 class="text-danger">Booking Failed</h2>
                                    <p class="lead mt-3">
-                                       Unfortunately, your payment could not be processed.
+                                       Unfortunately, your booking could not be processed.
                                    </p>
-                                   <p>Please check your payment details and try again.</p>
+                                   <p>Please try again.</p>
 
                                    <!-- Retry Payment Button -->
                                    <div class="mt-4">

@@ -34,6 +34,31 @@ if (isVehicleDetailAvailable()) {
       }
     });
 
+    let paymentType = "Card Payment";
+    checkPaymentToggleState();
+    $("#gatewayToggle").on("change", function () {
+      checkPaymentToggleState();
+    });
+    function checkPaymentToggleState() {
+      if ($("#gatewayToggle").is(":checked")) {
+        // Condition for when toggle is enabled
+        $("#paywithcard").hide();
+        $(".pay-now-btn").text("Book now");
+        paymentType = "Pay cash on arrival";
+        $("#cardNumber").removeAttr("required");
+        $("#expiry").removeAttr("required");
+        $("#cvv").removeAttr("required");
+      } else {
+        // Condition for when toggle is disabled
+        $("#paywithcard").show();
+        $(".pay-now-btn").text("Proceed Booking");
+        $("#cardNumber").attr("required", "required");
+        $("#expiry").attr("required", "required");
+        $("#cvv").attr("required", "required");
+        paymentType = "Card Payment";
+      }
+    }
+
     // Format card number as "#### #### #### ####"
     $("#cardNumber").on("input", function () {
       let cardNumber = $(this).val().replace(/\D/g, ""); // Remove non-digit characters
@@ -148,7 +173,7 @@ if (isVehicleDetailAvailable()) {
 
         const bookingData = {
           payment_method: "bacs",
-          payment_method_title: "Card Payment",
+          payment_method_title: paymentType,
           set_paid: true,
           billing: {
             first_name: firstName,
