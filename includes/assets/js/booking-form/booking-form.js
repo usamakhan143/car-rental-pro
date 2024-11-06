@@ -34,7 +34,7 @@ $('form[name="booking-form-style1"]').submit(function (event) {
   const pricePerDayText = $("#pricePerDayDisplay").text();
 
   // Display Vehicle Name
-  const vehicleName = $(".product_title").text();
+  const vehicleName = $(".product_title").first().text();
 
   // Display Vehicle image
   const vehicleImage = $(".wp-post-image").attr("src");
