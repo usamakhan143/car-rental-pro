@@ -67,19 +67,19 @@ function create_options_page_crp()
 }
 
 
-add_action('carbon_fields_register_fields', 'product_attach_custom_fields');
-function product_attach_custom_fields()
-{
+// add_action('carbon_fields_register_fields', 'product_attach_custom_fields');
+// function product_attach_custom_fields()
+// {
 
-    // If product type is 'simple', add custom fields
-    Container::make('post_meta', __('Vehicle Availibility'))
-        ->where('post_type', '=', 'product')
-        ->add_fields(array(
-            Field::make('complex', 'unavailable_dates', 'Unavailable Dates')
-                ->set_layout('tabbed-horizontal')
-                ->add_fields(array(
-                    Field::make('date', 'custom_date_field', __('Select a Date'))
-                        ->set_storage_format('Y-m-d') // Format for storing in the database (ISO format)
-                )),
-        ));
-}
+//     // If product type is 'simple', add custom fields
+//     Container::make('post_meta', __('Vehicle Availibility'))
+//         ->where('post_type', '=', 'product')
+//         ->add_fields(array(
+//             Field::make('complex', 'unavailable_dates', 'Unavailable Dates')
+//                 ->set_layout('tabbed-horizontal')
+//                 ->add_fields(array(
+//                     Field::make('date', 'custom_date_field', __('Select a Date'))
+//                         ->set_storage_format('Y-m-d') // Format for storing in the database (ISO format)
+//                 )),
+//         ));
+// }
