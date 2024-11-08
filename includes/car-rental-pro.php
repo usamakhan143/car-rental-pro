@@ -119,6 +119,7 @@ function showBookingForm()
         'userLoggedIn'     => is_user_logged_in(),
         'dates_na'         => $dates_NA,
         'vehcileId'        => get_the_ID(),
+        'isFullDayBooking' => get_plugin_options_crp('is_fulldaybooking_active'),
         'consumerKey'   => get_plugin_options_crp('woo_consumer_key'),
         'consumerSecret'      => get_plugin_options_crp('woo_consumer_secret'),
         // Add more dynamic data as needed

@@ -70,6 +70,8 @@ function create_options_page_crp()
                 ->set_attribute('placeholder', 'Enter value in percentage.')
                 ->set_attribute('type', 'number'), // Set the input type to number
 
+            Field::make('checkbox', 'is_fulldaybooking_active', __('Set full day booking'))->help_text('Choose whether the booking will be active or not for the full day (Example: for a booking from day 1 to day 2, day 2 will be fully booked only if this option is active)'),
+
             Field::make('html', 'woocommerce_integration_heading')
                 ->set_html('<h1>Woocommerce Integration</h1>'),
             Field::make('text', 'woo_consumer_key', 'Consumer Key')->set_width(50)->set_required(true)

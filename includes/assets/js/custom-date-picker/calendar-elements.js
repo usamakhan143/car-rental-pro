@@ -35,6 +35,7 @@ const vehicleId = CarRentalProData.vehcileId;
 const wooconsumerKey = CarRentalProData.consumerKey;
 const wooconsumerSecret = CarRentalProData.consumerSecret;
 const additionalFeePercnt = CarRentalProData.additionalFees;
+const isFullDayBooking = CarRentalProData.isFullDayBooking;
 // Product ID
 $("#vehicleNumber").val(vehicleId);
 let priceTobeCalculated;

@@ -47,7 +47,10 @@ function calculateAddonsTotal() {
 function calculateAndDisplayPrice() {
   if (startDate && endDate) {
     const timeDiff = Math.abs(endDate - startDate);
-    const numOfDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1; // Number of days
+
+    const fullDayBooking = isFullDayBooking ? 1 : 0;
+    const numOfDays =
+      Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + fullDayBooking; // Number of days
 
     // Calculate base price without discount
     let totalPriceWithoutDiscount = priceTobeCalculated * numOfDays;
@@ -99,7 +102,6 @@ function calculateAndDisplayPrice() {
     }
     const totalCharges = Math.round(totalPrice + taxes + totalAddonsCost);
     // total Charges Included Addons With Additional Fees
-    console.log("additional fees", additionalFeePercnt);
     let additionalFeesIncludedAddons = 0;
     if (additionalFeePercnt > 0) {
       additionalFeesIncludedAddons = Math.round(
