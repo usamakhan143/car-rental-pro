@@ -333,6 +333,7 @@
                        <p class="per-day-price-with-num-of-days">$450 x 4d: <span class="float-right">$1,800</span></p>
                        <p class="discount-type">Weekly Discount: <span class="float-right discount-value">-$1,800</span></p>
                        <p class="tax-container">Taxes & Fees: <span class="float-right taxes-fees-included">$162</span></p>
+                       <p class="additional-container">Additional Fees: <span class="float-right additional-fees-included">$162</span></p>
                        <p class="total-price">
                            Total Charges: <span class="float-right total-charges">$1,962</span>
                        </p>

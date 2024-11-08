@@ -88,6 +88,12 @@
                             <div class="col car-price" id="totalTaxFees"></div>
                         </div>
                     </div>
+                    <div class="additional-fee-section">
+                        <div class="row gx-0">
+                            <div class="col days-price">Additional Fees</div>
+                            <div class="col car-price" id="totalAdditionalFees"></div>
+                        </div>
+                    </div>
                     <hr />
                     <div class="row gx-0">
                         <div class="col total-crp Total-charges-crp">Total Charges</div>

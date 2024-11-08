@@ -96,10 +96,22 @@ function showBookingForm()
         $taxrates = 0; // Default value if checkbox is unchecked
     }
 
+    // Additional fee Value
+    $is_additionalfees = get_plugin_options_crp('is_additionalfees_active');
+    $additionalfeespercentage = get_plugin_options_crp('additionalfees_percentage');
+
+    // Default to 0 if the checkbox is not active or the percentage is not set
+    if ($is_additionalfees && isset($additionalfeespercentage) && is_numeric($additionalfeespercentage)) {
+        $addFee = (float)$additionalfeespercentage; // Cast to float
+    } else {
+        $addFee = 0; // Default value if checkbox is unchecked
+    }
+
     $pricing_data = array(
         'regularPrice'      => $regular_price,
         'salePrice'        => $sale_price,
         'taxRate'          => $taxrates,
+        'additionalFees'   => $addFee,
         'weeklyDiscount'   => $weeklyDis / 100,
         'monthlyDiscount'  => $monthlyDis / 100,
         'currency'         => get_woocommerce_currency(), // Example of dynamic data

@@ -15,6 +15,8 @@ const discountSec = document.querySelector(".discount-pricing-section");
 const discountType = document.getElementById("discount-type");
 const discountDisplay = document.getElementById("discountDisplay"); // New element to display discount
 const taxSec = document.querySelector(".taxes-pricing-section");
+const AddFeeSec = document.querySelector(".additional-fee-section");
+const AdditionalFeesVal = document.getElementById("totalAdditionalFees");
 
 // Variables to store the current date and selected range
 let currentDate = new Date();
@@ -32,6 +34,7 @@ const wooCurrencySymbol = CarRentalProData.currencySymbol;
 const vehicleId = CarRentalProData.vehcileId;
 const wooconsumerKey = CarRentalProData.consumerKey;
 const wooconsumerSecret = CarRentalProData.consumerSecret;
+const additionalFeePercnt = CarRentalProData.additionalFees;
 // Product ID
 $("#vehicleNumber").val(vehicleId);
 let priceTobeCalculated;

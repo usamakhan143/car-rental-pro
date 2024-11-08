@@ -98,6 +98,20 @@ function calculateAndDisplayPrice() {
       taxSec.style.display = "none";
     }
     const totalCharges = Math.round(totalPrice + taxes + totalAddonsCost);
+    // total Charges Included Addons With Additional Fees
+    console.log("additional fees", additionalFeePercnt);
+    let additionalFeesIncludedAddons = 0;
+    if (additionalFeePercnt > 0) {
+      additionalFeesIncludedAddons = Math.round(
+        (totalCharges * additionalFeePercnt) / 100
+      );
+    } else {
+      additionalFeesIncludedAddons = 0;
+      AddFeeSec.style.display = "none";
+    }
+    const totalChargesIncludedAddons = Math.round(
+      totalCharges + additionalFeesIncludedAddons
+    );
 
     document.querySelector(".display-pricing").style.display = "block";
 
@@ -106,7 +120,8 @@ function calculateAndDisplayPrice() {
     discountDisplay.innerHTML = `-$${discountValue}`;
     totalPriceDisplay.innerHTML = `$${totalPriceWithoutDiscount}`;
     taxAndFees.innerHTML = `$${taxes}`;
-    totalPriceShow.innerHTML = `$${totalCharges}`;
+    AdditionalFeesVal.innerHTML = `$${additionalFeesIncludedAddons}`;
+    totalPriceShow.innerHTML = `$${totalChargesIncludedAddons}`;
 
     // Set the hidden input value for form submission
     $("#selectedAddons").val(JSON.stringify(checkedAddons));
@@ -119,6 +134,7 @@ function resetPriceDisplay() {
   totalPriceDisplay.innerHTML = "";
   discountDisplay.innerHTML = ""; // Reset discount display
   taxAndFees.innerHTML = "";
+  AdditionalFeesVal.innerHTML = "";
   totalPriceShow.innerHTML = "";
 }
 

@@ -273,7 +273,6 @@ if (isVehicleDetailAvailable()) {
     );
 
     // Display selected add-ons in the #extras div
-
     const extrasDiv = $("#extras");
     if (vehicleDetails.addons.length > 0) {
       extrasDiv.empty(); // Clear previous list items
@@ -291,6 +290,15 @@ if (isVehicleDetailAvailable()) {
       extrasDiv.show(); // Show the extras container
     } else {
       extrasDiv.hide(); // Hide the extras container if no add-ons are selected
+    }
+
+    // Display Additional Fee
+    if (vehicleDetails.additionalFee > 0) {
+      $(".additional-fees-included").text(
+        currency + formatPrice(vehicleDetails.additionalFee)
+      );
+    } else {
+      $(".additional-container").text(" ");
     }
   });
 } else {

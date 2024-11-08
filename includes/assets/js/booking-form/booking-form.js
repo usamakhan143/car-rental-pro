@@ -45,6 +45,10 @@ $('form[name="booking-form-style1"]').submit(function (event) {
   // Currency Symbol
   const currencySymbol = "$";
 
+  // Additional Fees
+  const getAdditionalFees = $("#totalAdditionalFees").text();
+  const getAdditionalFeeVal = parseFloat(getAdditionalFees.replace("$", ""));
+
   // console.log(startDate + ": " + startTime);
   // console.log(endDate + ": " + endTime);
   // console.log("No. of days: " + daysDifference);
@@ -66,6 +70,7 @@ $('form[name="booking-form-style1"]').submit(function (event) {
     discountType: discountType,
     discount: discount,
     taxAndFees: taxFees,
+    additionalFee: getAdditionalFeeVal,
     vehiclePrice: vehiclePrice,
     totalCharges: totalCharges,
     currency: currencySymbol,
