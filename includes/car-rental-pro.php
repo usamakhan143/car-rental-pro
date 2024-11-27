@@ -1,5 +1,6 @@
 <?php
 
+include_once(CARRENTAL_PLUGIN_PATH . 'includes/email/car-rental-pro-admin-email.php');
 add_shortcode('booking_form_style_1', 'showBookingForm');
 add_shortcode('checkout_page', 'showCheckout');
 
@@ -9,6 +10,7 @@ add_action('wp_enqueue_scripts', 'checkoutPageCssJs');
 
 add_action('wp_enqueue_scripts', 'enqueue_carRentalPro_styles', 20);
 add_action('init', 'bookingOrderInquiry');
+
 
 
 function showBookingForm()

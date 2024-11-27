@@ -1,4 +1,17 @@
 <?php
+if (! defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
+}
+
+// Remove the order details section for both admin and customer emails
+add_action('woocommerce_email_order_details', 'remove_woocommerce_order_details', 1, 4);
+
+function remove_woocommerce_order_details($order, $sent_to_admin, $plain_text, $email)
+{
+    remove_action('woocommerce_email_order_details', array(WC()->mailer(), 'order_details'), 10, 4);
+    remove_action('woocommerce_email_order_details', array(WC()->mailer(), 'order_totals'), 20, 3);
+}
+
 add_filter('woocommerce_email_enabled_new_order', '__return_false');
 add_filter('woocommerce_email_classes', 'add_admin_product_purchase_email_class');
 
@@ -15,8 +28,8 @@ function add_admin_product_purchase_email_class($email_classes)
             $this->subject     = __('New Booking on {site_title}', 'text-domain');
 
             // Define email templates.
-            $this->template_html  = 'emails/admin-product-purchase.php';
-            $this->template_plain = 'emails/plain/admin-product-purchase.php';
+            $this->template_html  = CARRENTAL_PLUGIN_PATH . 'templates/emails/admin-product-purchase.php';
+            $this->template_plain = CARRENTAL_PLUGIN_PATH . 'templates/emails/plain/admin-product-purchase.php';
 
             // Set recipient as admin email.
             $this->recipient = get_option('admin_email');
@@ -78,15 +91,16 @@ function add_admin_product_purchase_email_class($email_classes)
             }
 
             return wc_get_template_html(
-                $this->template_html,
+                'admin-product-purchase.php', // Only the file name, relative to the provided base path
                 array(
                     'order'         => $this->object,
                     'email_heading' => $this->get_heading(),
                     'sent_to_admin' => true,
                     'plain_text'    => false,
                     'email'         => $this,
-                    'meta_data'     => $meta_data, // Pass dynamic meta data to the template
-                )
+                ),
+                '', // Leave this empty to bypass theme paths
+                CARRENTAL_PLUGIN_PATH . 'templates/emails/' // Your plugin's template directory
             );
         }
 
@@ -100,7 +114,9 @@ function add_admin_product_purchase_email_class($email_classes)
                     'sent_to_admin' => true,
                     'plain_text'    => true,
                     'email'         => $this,
-                )
+                ),
+                '', // Leave this empty to prevent WooCommerce from looking in the theme directory
+                CARRENTAL_PLUGIN_PATH . 'templates/emails/plain/' // Full path to your plugin's email 
             );
         }
     }
