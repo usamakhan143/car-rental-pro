@@ -1,6 +1,8 @@
 <?php
 
 include_once(CARRENTAL_PLUGIN_PATH . 'includes/email/car-rental-pro-admin-email.php');
+include_once(CARRENTAL_PLUGIN_PATH . 'includes/email/car-rental-pro-customer-email.php');
+
 add_shortcode('booking_form_style_1', 'showBookingForm');
 add_shortcode('checkout_page', 'showCheckout');
 

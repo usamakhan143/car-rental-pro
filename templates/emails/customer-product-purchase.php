@@ -43,6 +43,7 @@ foreach ($post_metas as $meta) {
 
 // Get the customer billing information
 $billing_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+$first_name = $order->get_billing_first_name();
 $billing_email = $order->get_billing_email();
 $billing_phone = $order->get_billing_phone();
 
@@ -63,6 +64,16 @@ $billing_phone = $order->get_billing_phone();
             color: #333;
         }
 
+        .greetings {
+            text-align: left;
+            padding: 20px;
+        }
+
+        .greetings p {
+            text-align: left;
+            font-size: 14px;
+        }
+
         .email-container {
             max-width: 600px;
             margin: 20px auto;
@@ -76,7 +87,7 @@ $billing_phone = $order->get_billing_phone();
             background-color: #0073aa;
             color: #ffffff;
             text-align: center;
-            padding: 20px;
+            padding: 40px;
         }
 
         .header h1 {
@@ -133,9 +144,12 @@ $billing_phone = $order->get_billing_phone();
     <div class="email-container">
         <!-- Header -->
         <div class="header">
-            <h1>New Booking: #<?php echo esc_html($order_id); ?></h1>
+            <h1>Thank you for your booking</h1>
         </div>
-
+        <div class="greetings">
+            <p>Hi <?php echo esc_html($first_name) . ','; ?></p>
+            <p>Just to let you know — we've received your booking #<?php echo esc_html($order_id); ?>, and it is now being processed:</p>
+        </div>
         <!-- Booking Details -->
         <div class="content">
             <h2 class="section-title">Booking Summary</h2>
@@ -255,7 +269,7 @@ $billing_phone = $order->get_billing_phone();
 
         <!-- Footer -->
         <div class="footer">
-            <p>If you have any questions about your booking system, contact us at
+            <p>If you have any questions about your booking, contact us at
                 <a href="mailto:usamaoff796@gmail.com">support@team.com</a>.
             </p>
             <p>YP Auto Rental © 2024</p>
