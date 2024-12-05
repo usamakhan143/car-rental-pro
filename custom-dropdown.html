@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    .travelproplus-custom-dropdown {
+      display: none; /* Hidden initially */
+      position: absolute;
+      z-index: 1000;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .travelproplus-dropdown-item {
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .travelproplus-dropdown-item:hover {
+      background-color: #f1f1f1;
+    }
+
+    #travelpro-plus-hotel-destination {
+      padding-left: 10px; /* Adjust these values if needed */
+      padding-right: 10px;
+      text-align: left; /* Ensure text is aligned properly */
+    }
+  </style>
+  <body>
+    <div class="col-md-3 p-0">
+      <div class="travelpro-search-flight-input-group-2">
+        <label class="bootstrap-form-label">Destination</label>
+        <i class="fa-solid fa-location-dot"></i>
+        <input
+          class="form-control input--style-1"
+          type="text"
+          id="travelpro-plus-hotel-destination"
+          name="hotel-destination"
+          placeholder="City, Region"
+          required="required"
+        />
+        <div class="icon-container hotel-destination-loader">
+          <i class="spinner"></i>
+        </div>
+        <div
+          class="travelproplus-custom-dropdown"
+          id="travelproplus-destination-dropdown"
+        >
+          <!-- Dropdown options will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        const popularDestinations = [
+          { name: "New York, USA", location_id: 101, dest_id: "NYC" },
+          { name: "Paris, France", location_id: 102, dest_id: "PAR" },
+          { name: "Tokyo, Japan", location_id: 103, dest_id: "TYO" },
+        ];
+
+        const dropdown = $("#travelproplus-destination-dropdown");
+        const inputField = $("#travelpro-plus-hotel-destination");
+
+        // Populate dropdown
+        popularDestinations.forEach((destination) => {
+          dropdown.append(
+            `<div class="travelproplus-dropdown-item" 
+                  data-location-id="${destination.location_id}" 
+                  data-dest-id="${destination.dest_id}">
+                ${destination.name}
+            </div>`
+          );
+        });
+
+        // Position and show dropdown on focus
+        inputField.on("focus", function () {
+          dropdown.css({
+            display: "block",
+            position: "absolute",
+            top: inputField.offset().top + inputField.outerHeight(),
+            left: inputField.offset().left,
+            width: inputField.outerWidth(),
+          });
+        });
+
+        // Hide dropdown when typing starts
+        inputField.on("input", function () {
+          dropdown.hide(); // Hide the dropdown when user types
+        });
+
+        // Hide dropdown on blur
+        inputField.on("blur", function () {
+          setTimeout(() => dropdown.hide(), 200); // Delay for click event
+        });
+
+        // Handle selection
+        $(document).on("click", ".travelproplus-dropdown-item", function () {
+          const selectedDestination = $(this).text().trim();
+          const locationId = $(this).data("location-id");
+          const destId = $(this).data("dest-id");
+
+          // Set the sanitized value in the input field
+          inputField.val(selectedDestination);
+
+          // Use additional data (optional)
+          console.log("Selected Location:", selectedDestination);
+          console.log("Location ID:", locationId);
+          console.log("Destination ID:", destId);
+
+          dropdown.hide();
+        });
+      });
+    </script>
+  </body>
+</html>
