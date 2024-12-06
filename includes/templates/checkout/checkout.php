@@ -241,10 +241,23 @@
                                        required />
                                </div>
                            </div>
+                           <?php if (get_plugin_options_crp('is_termspolicy_active')) { ?>
+                               <div class="col-md-6">
+                                   <div class="form-check acceptance-container">
+                                       <input
+                                           class="form-check-input"
+                                           type="checkbox"
+                                           id="agreeAcceptance" required />
+                                       <label class="form-check-label" for="agreeAcceptance">
+                                           I agree with the <a href="<?php echo get_plugin_options_crp('terms_policy'); ?>" class="acceptance-agreement"><?php echo get_plugin_options_crp('acceptance_text_selector'); ?></a>
+                                       </label>
+                                   </div>
+                               </div>
+                           <?php } ?>
                            <button type="button" class="btn btn-primary prev-btn" id="prevButton">
                                Back
                            </button>
-                           <button type="submit" class="btn btn-success pay-now-btn">Proceed Booking</button>
+                           <button type="submit" class="btn btn-success pay-now-btn">Proceed With Booking</button>
                        </form>
 
                        <div class="container mt-5" id="step3Form" style="display: none">
@@ -264,7 +277,7 @@
                                        Thank you for your booking!
                                    </p>
                                    <p>
-                                       The booking was received and a team member will reach out to you within 24hrs to confirm the details of your rental. we will not be charged until the rental is confirmed.
+                                       The booking was received and a team member will reach out to you within 24hrs to confirm the details of your rental. You will not be charged until the rental is confirmed.
                                    </p>
 
                                    <!-- Return to Home Button -->

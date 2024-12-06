@@ -245,3 +245,17 @@
   border-radius: 6px;
   padding: 7px;
 }
+
+#agreeAcceptance{
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.acceptance-agreement{
+  text-decoration: none !important;
+}
+
+.acceptance-container{
+  margin-top: 6px;
+}

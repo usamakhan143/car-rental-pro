@@ -51,7 +51,7 @@ if (isVehicleDetailAvailable()) {
       } else {
         // Condition for when toggle is disabled
         $("#paywithcard").show();
-        $(".pay-now-btn").text("Proceed Booking");
+        $(".pay-now-btn").text("Proceed With Booking");
         $("#cardNumber").attr("required", "required");
         $("#expiry").attr("required", "required");
         $("#cvv").attr("required", "required");

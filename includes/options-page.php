@@ -72,6 +72,29 @@ function create_options_page_crp()
 
             Field::make('checkbox', 'is_fulldaybooking_active', __('Set full day booking'))->help_text('Choose whether the booking will be active or not for the full day (Example: for a booking from day 1 to day 2, day 2 will be fully booked only if this option is active)'),
 
+            // Terms and Condition or Privacy Policy Link
+            Field::make('checkbox', 'is_termspolicy_active', __('Enable Acceptance')),
+            Field::make('radio', 'acceptance_text_selector', __('Choose text to show on checkout page'))
+                ->set_conditional_logic(array(
+                    array(
+                        'field' => 'is_termspolicy_active',
+                        'value' => true,
+                    )
+                ))
+                ->set_options(array(
+                    'Terms and Conditions' => 'Terms and Conditions',
+                    'Privacy Policy' => 'Privacy Policy',
+                )),
+
+            Field::make('text', 'terms_policy', 'Terms & Condition OR Privacy Policy Link')->set_width(50)
+                ->set_conditional_logic(array(
+                    array(
+                        'field' => 'is_termspolicy_active',
+                        'value' => true,
+                    )
+                ))
+                ->set_attribute('placeholder', 'Enter URL here.'),
+
             Field::make('html', 'woocommerce_integration_heading')
                 ->set_html('<h1>Woocommerce Integration</h1>'),
             Field::make('text', 'woo_consumer_key', 'Consumer Key')->set_width(50)->set_required(true)
